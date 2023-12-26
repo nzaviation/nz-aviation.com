@@ -8,13 +8,52 @@
     <link rel="icon" href="images/Logo.JPG" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .contact-method {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #18E3E6;
+            color: #4A4F54;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 85%;
+        }
+
+        .contact-method:hover {
+            background-color: #0056b3;
+        }
+
+        .contact-method i {
+            margin-right: 10px;
+        }
+
+        .text-box {
+            padding: 0.1em;
+            border-radius: 20px;
+            background-color: grey;
+            color: yellow;
+            text-align: center;
+            margin: 10px;
+        }
+
         body {
             text-align: center;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            background-image: url(images/Background.JPG);
+            background-image: url(https://e0.pxfuel.com/wallpapers/543/833/desktop-wallpaper-airplane-aircraft-air-travel-world-1028-for-iphone-android-mobile-and-airplane-beautiful-background-for-mobile.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -56,35 +95,6 @@
             padding: 1em;
         }
 
-        .text-box {
-            padding: 0.1em;
-            border-radius: 20px;
-            background-color: grey;
-            color: yellow;
-            text-align: center;
-            margin: 10px;
-        }
-
-        .contact-method {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #18E3E6;
-            color: #4A4F54;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 85%;
-        }
-
-        .contact-method:hover {
-            background-color: #0056b3;
-        }
-
-        .contact-method i {
-            margin-right: 10px;
-        }
-
         section {
             margin-bottom: 1em;
         }
@@ -123,14 +133,15 @@
         <div class="text-box">
             <h2>Contact Me</h2>
             <h4>Have questions or suggestions? Reach out to me via any of my socials below!</h4>
-        </div><br>
+        </div>
+        <ul>
             <li class="contact-method"><i class="fas fa-envelope"></i>Email: nzdoubleunderscoreaviation@gmail.com</li>
             <li class="contact-method"><i class="fab fa-tiktok"></i>TikTok: @nz__aviation</li>
             <li class="contact-method"><i class="fab fa-instagram"></i>Instagram: @nz__aviation1</li>
             <li class="contact-method"><i class="fab fa-youtube"></i>YouTube: @nz__aviation</li>
             <li class="contact-method"><i class="fab fa-snapchat"></i>Snapchat: @nz__aviation</li>
             <li class="contact-method"><i class="fab fa-github"></i>GitHub: @nz__aviation</li>
-        <br><br><br><br><br><br><br><br>
+        </ul>
     </main>
 
     <footer>
