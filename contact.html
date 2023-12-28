@@ -158,6 +158,15 @@
             background-color: #0056b3;
         }
     </style>
+
+<script>
+        function clearForm() {
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("message").value = "";
+        }
+    </script>
+    
 </head>
 
 <body>
@@ -190,7 +199,7 @@
 
         <div class="text-box">
             <h2>Contact Form</h2>
-            <form action="https://formspree.io/f/mgegewel" method="post">
+            <form action="https://formspree.io/f/mgegewel" method="post" onsubmit="clearForm()">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
 
