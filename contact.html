@@ -161,9 +161,11 @@
 
 <script>
         function clearForm() {
-            document.getElementById("name").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("message").value = "";
+            setTimeout(function () {
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("message").value = "";
+            }, 1000); // 1000 milliseconds = 1 second
         }
     </script>
     
