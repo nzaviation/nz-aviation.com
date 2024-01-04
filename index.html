@@ -1,159 +1,193 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | nz__aviation's website</title>
-    <link rel="icon" href="images/Logo.JPG" type="image/x-icon">
-    <style>
-        body {
-            text-align: center;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            background-image: url(images/Background.JPG);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            color: yellow;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-        }
-
-        nav {
-            background-color: #444;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 1em;
-            margin: 0 1em;
-            font-weight: bold;
-            transition: color 0.3s;
-            display: inline-block;
-        }
-
-        nav a:hover {
-            color: #3498db;
-        }
-
-        main {
-            padding: 1em;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #18E3E6;
-            color: #4A4F54;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-        .text-box {
-            padding: 0.2em;
-            border-radius: 20px;
-            background-color: grey;
-            color: yellow;
-            text-align: center;
-            margin: 10px;
-        }
-
-        section {
-            margin-bottom: 1em;
-        }
-
-        a {
-            color: dodgerblue;
-        }
-
-        a:hover {
-            color: blue;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-        }
-
-        #notification-banner {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            width: 80%;
-            transform: translateX(-50%);
-            background-color: #3498db;
-            color: white;
-            padding: 13px;
-            text-align: center;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            animation: fadeInOut 5s ease-out;
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% {
-                opacity: 0;
-            }
-            10%, 90% {
-                opacity: 1;
-            }
-        }
-
-        #close-btn {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: white;
-            font-size: 25px;
-            font-weight: bold;
-        }
-    </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home | nz__aviation's website</title>
+        <link rel="icon" href="images/Logo.JPG" type="image/x-icon">
 </head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    min-height: 100vh;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    background-image: url(images/Background.JPG);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: yellow;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+nav {
+    background-color: white;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+nav li {
+    height: 50px;
+}
+
+nav a {
+    height: 100%;
+    padding: 0 30px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+nav a:hover {
+    color: blue;
+}
+
+nav li:first-child {
+    margin-right: auto;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    box-shadow: -10 0 10 rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.sidebar li {
+    width: 100%;
+}
+
+.sidebar a {
+    width: 100%
+}
+
+.menu-button {
+    display: none;
+}
+
+@media(max-width: 800px) {
+    .hideOnMobile {
+        display: none;
+    }
+    .menu-button {
+        display: block;
+    }
+}
+
+@media(max-width: 400px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+main {
+    padding: 1em;
+}
+
+.text-box {
+    padding: 0.2em;
+    border-radius: 20px;
+    background-color: grey;
+    color: yellow;
+    text-align: center;
+    margin: 10px;
+}
+
+section {
+    margin-bottom: 1em;
+}
+
+footer {
+    background-color: white;
+    color: black;
+    padding: 1em;
+    text-align: center;
+}
+
+#notification-banner {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    width: 80%;
+    transform: translateX(-50%);
+    background-color: #3498db;
+    color: white;
+    padding: 13px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeInOut 5s ease-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    10%, 90% {
+        opacity: 1;
+    }
+}
+
+#close-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+</style>
 <body>
-
-    <div id="notification-banner">
-        <span id="close-btn" onclick="closeBanner()">×</span>
-        <p>Welcome to my main website! Check out my 'Websites' page for more websites made by me!</p>
-    </div>
-
-    <header>
-        <h1>@nz__aviation</h1>
-        <p>A special thanks to Joseph, for helping me by beta testing this website. I appreciate your help a lot, thank you! :)</p>
-    </header>
-
     <nav>
-        <a href="https://www.nz-aviation.com/">Home</a>
-        <a href="/videos">Videos</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/websites">Websites</a>
+        <ul class="sidebar">
+            <li onclick=hideSidebar()><a href="#"><h1><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></h1></a></li>
+            <li><a href="https://www.nz-aviation.com">Home</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/websites">Websites</a></li>
+        </ul>
+        <ul>
+            <li><a href="https://www.nz-aviation.com"><h1>@nz__aviation</h1></a></li>
+            <li class="hideOnMobile"><a href="https://www.nz-aviation.com">Home</a></li>
+            <li class="hideOnMobile"><a href="/videos">Videos</a></li>
+            <li class="hideOnMobile"><a href="/about">About</a></li>
+            <li class="hideOnMobile"><a href="/contact">Contact</a></li>
+            <li class="hideOnMobile"><a href="/websites">Websites</a></li>
+            <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></svg></svg></a></li>
+        </ul>        
     </nav>
 
     <main>
@@ -198,6 +232,16 @@
     </footer>
 
     <script>
+        function showSidebar(){
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'flex'
+        }
+
+        function hideSidebar(){
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'none'
+        }
+
         function closeBanner() {
             document.getElementById('notification-banner').style.display = 'none';
         }
@@ -206,7 +250,5 @@
             closeBanner();
         }, 5000);
     </script>
-
 </body>
-
 </html>
