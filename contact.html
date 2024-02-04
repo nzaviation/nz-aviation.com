@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | nz-aviation.com</title>
+    <title>Contact Me | nz-aviation.com</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -31,16 +31,39 @@
         </ul>
       </nav>
     </header>
-
-    <section class="homepage" id="home">
-      <div class="content">
-        <div class="text">
-          <h1>Welcome to nz-aviation.com!</h1>
-          <p>Here you will be able to learn more about my aviation story and find links to my ever-growing list of TikTok videos!</p>
+    <section class="contact" id="contact">
+      <h2>Contact Me</h2>
+      <p>Reach out to me for any inquiries or feedback.</p>
+      <div class="row">
+        <div class="col information">
+          <div class="contact-details">
+            <p><i class="fas fa-map-marker-alt"></i> Mid Canterbury, New Zealand</p>
+            <p><i class="fas fa-envelope"></i> help@nz-aviation.com</p>
+            <p><i class="fas fa-globe"></i> www.nz-aviation.com</p>
+            <p><i class="fab fa-tiktok"></i> nz__aviation</p>
+            <p><i class="fab fa-instagram"></i> nz__aviation1</p><br>
+            <p><i class="fas fa-envelope"></i> jack@nz-aviation.com</p>
+            <p><i class="fas fa-envelope"></i> joseph@nz-aviation.com</p>
+            <p><i class="fas fa-envelope"></i> sam@nz-aviation.com</p>
+          </div>          
         </div>
-        <a href="/videos">My videos</a>
+        <div class="col form">
+          <form action="https://formspree.io/f/mgegewel" method="post" onsubmit="clearForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+        </div>
       </div>
-    </section>
+    </section><br><br><br>
+
     <footer>
       <div>
         <span>&copy; 2024 Jack Palmer. All rights reserved.</span>

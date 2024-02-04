@@ -1,249 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | nz__aviation's website</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <title>About Me | nz-aviation.com</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <style>
-    * {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    min-height: 100vh;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    background-image: url(images/Background.JPG);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    color: yellow;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em;
-    text-align: center;
-}
-
-nav {
-    background-color: white;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-nav ul {
-    width: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-}
-nav li {
-    height: 50px;
-}
-
-nav a {
-    height: 100%;
-    padding: 0 30px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    color: black;
-}
-
-nav a:hover {
-    color: blue;
-}
-
-nav li:first-child {
-    margin-right: auto;
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(20px);
-    box-shadow: -10 0 10 rgba(0, 0, 0, 0.1);
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.sidebar li {
-    width: 100%;
-}
-
-.sidebar a {
-    width: 100%
-}
-
-.menu-button {
-    display: none;
-}
-
-@media(max-width: 860px) {
-    .hideOnMobile {
-        display: none;
-    }
-    .menu-button {
-        display: block;
-    }
-}
-
-@media(max-width: 400px) {
-    .sidebar {
-        width: 100%;
-    }
-}
-
-main {
-    padding: 1em;
-}
-
-.text-box {
-    padding: 20px;
-    border-radius: 20px;
-    background-color: grey;
-    color: yellow;
-    text-align: center;
-    margin: 10px;
-}
-
-section {
-    margin-bottom: 1em;
-}
-
-footer {
-    background-color: white;
-    color: black;
-    padding: 1em;
-    text-align: center;
-}
-
-#notification-banner {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    width: 80%;
-    transform: translateX(-50%);
-    background-color: #3498db;
-    color: white;
-    padding: 13px;
-    text-align: center;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    animation: fadeInOut 5s ease-out;
-}
-
-@keyframes fadeInOut {
-    0%, 100% {
-        opacity: 0;
-    }
-    10%, 90% {
-        opacity: 1;
-    }
-}
-
-#close-btn {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #18E3E6;
-            color: #4A4F54;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-        
-</style>
-</head>
-<body>
-    <nav>
-        <ul class="sidebar">
-            <li onclick=hideSidebar()><a href=""><h1><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></h1></a></li>
-            <li><a href="https://www.nz-aviation.com">Home</a></li>
-            <li><a href="/videos">Videos</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="https://help.nz-aviation.com/contact">Contact</a></li>
-            <li><a href="https://websites.nz-aviation.com">Websites</a></li>
-            <li><a href="https://help.nz-aviation.com">Help</a></li>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <h2 class="logo"><a href="/">@nz__aviation</a></h2>
+        <input type="checkbox" id="menu-toggler">
+        <label for="menu-toggler" id="hamburger-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </label>
+        <ul class="all-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/videos">Videos</a></li>
+          <li><a href="/about">About Me</a></li>
+          <li><a href="/contact">Contact Me</a></li>
+          <li><a href="/websites">Websites</a></li>
         </ul>
-        <ul>
-            <li><a href="https://www.nz-aviation.com"><h1>@nz__aviation</h1></a></li>
-            <li class="hideOnMobile"><a href="https://www.nz-aviation.com">Home</a></li>
-            <li class="hideOnMobile"><a href="/videos">Videos</a></li>
-            <li class="hideOnMobile"><a href="/about">About</a></li>
-            <li class="hideOnMobile"><a href="https://help.nz-aviation.com/contact">Contact</a></li>
-            <li class="hideOnMobile"><a href="https://websites.nz-aviation.com">Websites</a></li>
-            <li class="hideOnMobile"><a href="https://help.nz-aviation.com">Help</a></li>
-            <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></svg></svg></a></li>
-        </ul>        
-    </nav>
-
-    <main>
-        <div class="text-box">
-            <h2>About Me</h2>
-            <h3>Hello there! My name is Jack, also known as nz__aviation. I'm a 14-year-old aviation enthusiast with big dreams of soaring through the skies at 900 knots. Currently, I'm a student pilot training at the Mid Canterbury Aero Club on a Piper PA-38, registered ZK-MAJ. The Mid Canterbury Aero Club is where my passion for aviation takes flight.</h3>
-            <h3>Ever since I was a little 5-year-old, I have had a dream of being a pilot. The thrill of aviation, the excitement of takeoff, and the beautiful views from the cockpit have boosted my eagerness to become a pilot. I'm pursuing my dream with determination and enthusiasm, learning every aspect of flying and navigating the large playground we call the sky.</h3>
-            <h3>One day, I aspire to be a pilot for Air New Zealand, cruising through the air on the magnificent Boeing 787 Dreamliner. The thought of piloting such an advanced and iconic aircraft excites me, and I'm committed to putting in the hard work to turn this dream into a reality.</h3>
-            <h3>Join me on this exciting journey as I share my experiences, challenges, and victories in the world of aviation. I hope to connect with other aviation enthusiasts through this website, share knowledge about the life of a young pilot in training, and inspire others to fly.</h3>
-            <h3>Thank you for being a part of my aviation adventure!</h3>
+      </nav>
+    </header>
+    <section class="about" id="about">
+        <h2>About Me</h2>
+        <p>Discover my story and how I came to love the world of aviation!</p>
+        <div class="row company-info">
+          <h3>My Story</h3>
+            <p>Hello there! My name is Jack, also known as nz__aviation. I'm a 14-year-old aviation enthusiast with big dreams of soaring through the skies at 900 knots. Currently, I'm a student pilot training at the Mid Canterbury Aero Club on a Piper PA-38, registered ZK-MAJ. The Mid Canterbury Aero Club is where my passion for aviation takes flight.</p><br>
+            <p>Ever since I was a little 5-year-old, I have had a dream of being a pilot. The thrill of aviation, the excitement of takeoff, and the beautiful views from the cockpit have boosted my eagerness to become a pilot. I'm pursuing my dream with determination and enthusiasm, learning every aspect of flying and navigating the large playground we call the sky.</p><br>
+            <p>One day, I aspire to be a pilot for Air New Zealand, cruising through the air on the magnificent Boeing 787 Dreamliner. The thought of piloting such an advanced and iconic aircraft excites me, and I'm committed to putting in the hard work to turn this dream into a reality.</p><br>
+            <p>Join me on this exciting journey as I share my experiences, challenges, and victories in the world of aviation. I hope to connect with other aviation enthusiasts through this website, share knowledge about the life of a young pilot in training, and inspire others to fly.</p><br>
+            <p>With my brothers Canon EOS R100, I have achieved a photo onto Jetphotos, a large achievement for me. View the photo <a href="https://www.jetphotos.com/photo/11204499">here</a>.</p><br>
+            <p>Thank you for being a part of my aviation adventure!</p><br>
         </div>
-
-        <div class="text-box">
-            <h1>ZK-MAJ</h1>
-            <h3>Operated by Mid Canterbury Aero Club.</h3>
-            <img src="images/ZK-MAJ.JPG" alt="ZK-MAJ" width="80%" height="auto">
+  
+        <div class="row team">
+          <h3>My Gear</h3>
+          <ul>
+              <h5>Current Gear: (Camera & lenses owned by my brother)</h5>
+              <p>- Canon EOS R100</p>
+              <p>- Canon RF 100-400mm</p>
+              <p>- Canon RF 18-45mm</p>
+              <p>- DJI Mini 2 SE</p>
+          </ul>
         </div>
-    </main>
-
+      
+        <div class="row team">
+          <h3>My Team</h3>
+          <ul>
+            <li>Jack Palmer - Founder & Developer</li>
+            <li>Joseph McBrearty - Beta & Support</li>
+            <li>Sam Palmer - Support</li>
+          </ul>
+        </div>
+      </section>
+    <br><br>
     <footer>
-        <h3>&copy; 2024 nz__aviation. All rights reserved.</h3>
-    <h4><a href="https://help.nz-aviation.com/terms">Terms of Use</a> | <a href="https://help.nz-aviation.com/privacy">Privacy Policy</a></h4>
+      <div>
+        <span>&copy; 2024 Jack Palmer. All rights reserved.</span>
+      </div>
     </footer>
 
-    <script>
-        function showSidebar(){
-            const sidebar = document.querySelector('.sidebar')
-            sidebar.style.display = 'flex'
-        }
-
-        function hideSidebar(){
-            const sidebar = document.querySelector('.sidebar')
-            sidebar.style.display = 'none'
-        }
-
-    </script>
-</body>
+  </body>
 </html>

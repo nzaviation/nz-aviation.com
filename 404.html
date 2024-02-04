@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error 404 - Page Not Found</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <style>
         body {
             margin: 0;
@@ -24,6 +28,8 @@
             border-radius: 30px;
             text-align: center;
             margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
         }
 
         h1 {
@@ -31,15 +37,17 @@
             margin: 0;
             letter-spacing: -5px;
             line-height: 0.8em;
+            animation: swing 2s ease-in-out infinite;
         }
 
         p {
             font-size: 1.5em;
             margin: 10px 0;
+            color: #95a5a6;
         }
 
         @keyframes swing {
-            0% {
+            0%, 100% {
                 transform: rotate(0deg);
             }
             25% {
@@ -51,13 +59,15 @@
             75% {
                 transform: rotate(5deg);
             }
-            100% {
-                transform: rotate(0deg);
-            }
         }
 
-        h1 {
-            animation: swing 2s ease-in-out infinite;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         @media screen and (max-width: 600px) {
@@ -72,17 +82,19 @@
 
         .button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 15px 30px;
             background-color: #3498db;
             color: #4A4F54;
             text-decoration: none;
-            border: none;
+            border: 2px solid #fff;
             border-radius: 5px;
-            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
 
         .button:hover {
             background-color: #0056b3;
+            color: #fff;
         }
     </style>
 </head>
@@ -90,7 +102,7 @@
     <div class="container">
         <h1>404</h1>
         <p>Page Not Found</p><br>
-        <a href="https://www.nz-aviation.com" class="button">Home</a>
+        <a href="/" class="button">Home</a>
     </div>
 </body>
 </html>

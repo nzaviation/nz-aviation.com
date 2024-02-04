@@ -1,277 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos | nz__aviation's website</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <title>Videos | nz-aviation.com</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <style>
-    * {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    min-height: 100vh;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    background-image: url(images/Background.JPG);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    color: yellow;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em;
-    text-align: center;
-}
-
-nav {
-    background-color: white;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-nav ul {
-    width: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-}
-nav li {
-    height: 50px;
-}
-
-nav a {
-    height: 100%;
-    padding: 0 30px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    color: black;
-}
-
-nav a:hover {
-    color: blue;
-}
-
-nav li:first-child {
-    margin-right: auto;
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(20px);
-    box-shadow: -10 0 10 rgba(0, 0, 0, 0.1);
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.sidebar li {
-    width: 100%;
-}
-
-.sidebar a {
-    width: 100%
-}
-
-.menu-button {
-    display: none;
-}
-
-@media(max-width: 860px) {
-    .hideOnMobile {
-        display: none;
-    }
-    .menu-button {
-        display: block;
-    }
-}
-
-@media(max-width: 400px) {
-    .sidebar {
-        width: 100%;
-    }
-}
-
-main {
-    padding: 1em;
-}
-
-.text-box {
-    padding: 20px;
-    border-radius: 20px;
-    background-color: grey;
-    color: yellow;
-    text-align: center;
-    margin: 10px;
-}
-
-section {
-    margin-bottom: 1em;
-}
-
-footer {
-    background-color: white;
-    color: black;
-    padding: 1em;
-    text-align: center;
-}
-
-#notification-banner {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    width: 80%;
-    transform: translateX(-50%);
-    background-color: #3498db;
-    color: white;
-    padding: 13px;
-    text-align: center;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    animation: fadeInOut 5s ease-out;
-}
-
-@keyframes fadeInOut {
-    0%, 100% {
-        opacity: 0;
-    }
-    10%, 90% {
-        opacity: 1;
-    }
-}
-
-#close-btn {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #18E3E6;
-            color: #4A4F54;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-        
-</style>
-</head>
-<body>
-    <nav>
-        <ul class="sidebar">
-            <li onclick=hideSidebar()><a href=""><h1><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></h1></a></li>
-            <li><a href="https://www.nz-aviation.com">Home</a></li>
-            <li><a href="/videos">Videos</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="https://help.nz-aviation.com/contact">Contact</a></li>
-            <li><a href="https://websites.nz-aviation.com">Websites</a></li>
-            <li><a href="https://help.nz-aviation.com">Help</a></li>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <h2 class="logo"><a href="/">@nz__aviation</a></h2>
+        <input type="checkbox" id="menu-toggler">
+        <label for="menu-toggler" id="hamburger-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </label>
+        <ul class="all-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/videos">Videos</a></li>
+          <li><a href="/about">About Me</a></li>
+          <li><a href="/contact">Contact Me</a></li>
+          <li><a href="/websites">Websites</a></li>
         </ul>
-        <ul>
-            <li><a href="https://www.nz-aviation.com"><h1>@nz__aviation</h1></a></li>
-            <li class="hideOnMobile"><a href="https://www.nz-aviation.com">Home</a></li>
-            <li class="hideOnMobile"><a href="/videos">Videos</a></li>
-            <li class="hideOnMobile"><a href="/about">About</a></li>
-            <li class="hideOnMobile"><a href="https://help.nz-aviation.com/contact">Contact</a></li>
-            <li class="hideOnMobile"><a href="https://websites.nz-aviation.com">Websites</a></li>
-            <li class="hideOnMobile"><a href="https://help.nz-aviation.com">Help</a></li>
-            <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></svg></svg></svg></a></li>
-        </ul>        
-    </nav>
-
-    <main>
-        <div class="text-box">
-            <h2>Latest Videos</h2>
-            <h3>Edits:</h3>
-        </div>
-
-        <div>
-            <br>
-            <a href="https://vt.tiktok.com/ZSNt6F1Fn/" class="button">Air France B787</a><br><br>
-            <a href="https://vt.tiktok.com/ZSN9uhCYV/" class="button">Qantas B787</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNrJQe8x/" class="button">US Navy Carrier #2</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNFjChVK/" class="button">US Navy Carrier #1</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNa8Qpw6/" class="button">Air France A220</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNa8GBFG/" class="button">Etihad B787 #2</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNa8gfYr/" class="button">Alaska B737 #2</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNa8Tnpw/" class="button">Emirates A380</a><br><br>
-        </div>
-
-        <div class="text-box">
-            <h3>Planespotting:</h3>
-        </div>
-
-        <div>
-            <br>
-            <a href="https://vt.tiktok.com/ZSNsjYYn6/" class="button">2023 Improvement</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNsjh6kh/" class="button">26/11/23 Spotting</a><br><br>
-        </div>
-
-        <div class="text-box">
-            <h3>Miscellaneous:</h3>
-        </div>
-
-        <div>
-            <br>
-            <a href="https://vt.tiktok.com/ZSNt6REMQ/" class="button">Lotto Purchase</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNt6REMQ/" class="button">Fears I Have</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNt6Dt7t/" class="button">Ground vs Air View</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNsjyek1/" class="button">Jetfuel Smell</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNsj2K2T/" class="button">Fiji Overview</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNsjAG73/" class="button">NAN - CHC 14/11/23</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNsjkBv1/" class="button">CHC - NAN 04/11/23</a><br><br>
-            <a href="https://vt.tiktok.com/ZSNsj2ENS/" class="button">NPE - CHC 15/10/23</a><br><br>
-        </div>
-    </main>
-
+      </nav>
+    </header>
+    <section class="portfolio" id="portfolio">
+        <h2>My Videos</h2>
+        <p>Take a look at some of my aviation related TikTok videos!</p><br>
+        <h5>* Currently, I am using this page to only display edits. I may display other videos later on in time!</h5>
+        <ul class="cards">
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSF8KRhap/">Eva Air B787</a></h3>
+            <p>GIVE US ALL THE AUDIOS BACK 😭 #aircraft #flying</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSF8KRhap/">Fiji Airways A350</a></h3>
+            <p>Fiji Airways 🤩🤩 (Yes, I realise I haven't made an edit in like 3 months 🤫) #aircraft #fijiairways #flying</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSNt6F1Fn/">Air France B787</a></h3>
+            <p>Merry Christmas everyone! | I don't really like this edit but its all i could be bothered making… #AirFrance #aviation #flying</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSN9uhCYV/">Qantas B787</a></h3>
+            <p>I know, I haven't posted an edit in 34 days… 😭 #Qantas #Dreamliner #Boeing #aircraft</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSNrJQe8x/">US Navy Carrier #2</a></h3>
+            <p>Carrier ops 2 #edit #USNavy #fyp</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSNFjChVK/">US Navy Carrier #1</a></h3>
+            <p>Carrier ops #usnavy #fyp</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSNa8Qpw6/">Air France A220</a></h3>
+            <p>Forgot my proper watermark but okay 😭😅 #fyp #foryou #xyzbca #edit #makethisviral #nz__aviation #AFA220 #AirFrance</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSNa8GBFG/">Etihad B787</a></h3>
+            <p>I FINALLY FOUND MOTIVATION TO EDIT, AT 3:26AM LAST NIGHT!! (I've fractured my thumb so I strugle to edit 🤑🤑) #edit #rush #etihadairways #nz__aviation</p>
+          </li>
+          <li class="card"><br>
+            <h3><a href="https://vt.tiktok.com/ZSNa8Tnpw/">Emirates A380</a></h3>
+            <p>Haven't posted in a while, here's a rushed edit… 😭🙏 #fyp #foryou #xyzbca #edit #makethisviral #nz__aviation #EmiratesDubaiExpo #Emirates</p>
+          </li>
+        </ul>
+      </section>
+        <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
+        <br><br>
     <footer>
-        <h3>&copy; 2024 nz__aviation. All rights reserved.</h3>
-    <h4><a href="https://help.nz-aviation.com/terms">Terms of Use</a> | <a href="https://help.nz-aviation.com/privacy">Privacy Policy</a></h4>
+      <div>
+        <span>&copy; 2024 Jack Palmer. All rights reserved.</span>
+      </div>
     </footer>
-
     <script>
-        function showSidebar(){
-            const sidebar = document.querySelector('.sidebar')
-            sidebar.style.display = 'flex'
+        window.onscroll = function() {
+          scrollFunction();
+        };
+  
+        function scrollFunction() {
+          var backToTopBtn = document.getElementById("backToTopBtn");
+  
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            backToTopBtn.style.display = "block";
+          } else {
+            backToTopBtn.style.display = "none";
+          }
         }
+  
+        function scrollToTop() {
+          var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
 
-        function hideSidebar(){
-            const sidebar = document.querySelector('.sidebar')
-            sidebar.style.display = 'none'
+          window.scrollTo(0, 0);
         }
-
-    </script>
-</body>
+      </script>
+  </body>
 </html>

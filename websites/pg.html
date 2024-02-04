@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #3498db, #2c3e50);
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #app-container {
+      width: 90%;
+      max-width: 500px;
+      height: 95%;
+      background-color: #2c3e50;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #app-header {
+      background-color: #3498db;
+      padding: 20px;
+      font-size: 2.5em;
+      color: #fff;
+    }
+
+    #generator-container {
+      padding: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 12px;
+      text-align: left;
+      font-size: 1.1em;
+      color: #fff;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 2px solid #3498db;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+
+    .password-input {
+      position: relative;
+    }
+
+    #password {
+      font-size: 1.8em;
+      margin-top: 25px;
+      word-break: break-all;
+      color: #fff;
+    }
+
+    #generate-button,
+    #copy-button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 1.2em;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    #generate-button:hover,
+    #copy-button:hover {
+      background-color: #2980b9;
+    }
+
+    #password-strength {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #fff;
+    }
+
+    .checkbox-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 1.1em;
+      color: #fff;
+    }
+
+    .checkbox-label input {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app-container">
+    <div id="app-header">
+      Password Generator
+    </div>
+    <div id="generator-container">
+      <label for="password-length">Choose Password Length:</label>
+      <input type="number" id="password-length" min="8" max="32" value="12">
+      
+      <div class="checkbox-container">
+        <div class="checkbox-label">
+          <input type="checkbox" id="include-uppercase" checked>
+          <span>Include Uppercase Letters</span>
+        </div>
+
+        <div class="checkbox-label">
+          <input type="checkbox" id="include-numbers" checked>
+          <span>Include Numbers</span>
+        </div>
+
+        <div class="checkbox-label">
+          <input type="checkbox" id="include-special" checked>
+          <span>Include Special Characters</span>
+        </div>
+      </div>
+
+      <div class="password-input">
+        <label for="password-input">Your Secure Password:</label>
+        <div id="password"></div>
+
+      <button id="generate-button" onclick="generatePassword()">Generate Secure Password</button>
+      <button id="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+      <div id="password-strength"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      generatePassword(); 
+    });
+
+    function generatePassword() {
+      const passwordLength = document.getElementById('password-length').value;
+      const includeUppercase = document.getElementById('include-uppercase').checked;
+      const includeNumbers = document.getElementById('include-numbers').checked;
+      const includeSpecial = document.getElementById('include-special').checked;
+
+      const password = generateRandomPassword(passwordLength, includeUppercase, includeNumbers, includeSpecial);
+      document.getElementById('password').textContent = password;
+      updatePasswordStrength(password);
+    }
+
+    function generateRandomPassword(length, includeUppercase, includeNumbers, includeSpecial) {
+      let charset = "abcdefghijklmnopqrstuvwxyz";
+      if (includeUppercase) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      if (includeNumbers) charset += "0123456789";
+      if (includeSpecial) charset += "!@$&_-*";
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset.charAt(randomIndex);
+      }
+      return password;
+    }
+
+    function copyToClipboard() {
+      const passwordElement = document.getElementById('password');
+      const passwordText = passwordElement.textContent;
+
+      const textarea = document.createElement('textarea');
+      textarea.value = passwordText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      alert('Password copied to clipboard!');
+    }
+
+    function updatePasswordStrength(password) {
+      const result = zxcvbn(password);
+      const strengthIndicator = document.getElementById('password-strength');
+      strengthIndicator.textContent = `Password Strength: ${result.score}/4 (${result.feedback.suggestions.join(', ')})`;
+
+      switch (result.score) {
+        case 0:
+          strengthIndicator.style.color = '#e74c3c';
+          break;
+        case 1:
+          strengthIndicator.style.color = '#f39c12';
+          break;
+        case 2:
+          strengthIndicator.style.color = '#f39c12';
+          break;
+        case 3:
+          strengthIndicator.style.color = '#2ecc71';
+          break;
+        case 4:
+          strengthIndicator.style.color = '#2ecc71';
+          break;
+        default:
+          strengthIndicator.style.color = '#fff';
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const passwordElement = document.getElementById('password');
+      const eyeIcon = document.querySelector('.eye-icon');
+
+      const isVisible = passwordElement.style.display === 'block';
+      passwordElement.style.display = isVisible ? 'none' : 'block';
+
+      if (isVisible) {
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
+  </script>
+</body>
+</html>
