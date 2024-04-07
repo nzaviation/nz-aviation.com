@@ -3,7 +3,7 @@
   "short_name": "nz-av",
   "icons": [
     {
-      "src": "/Logo.png",
+      "src": "images/Logo.JPG",
       "sizes": "192x192",
       "type": "image/png"
     }
