@@ -61,6 +61,26 @@
             font-size: 1.2em;
             margin-top: 20px;
         }
+        
+        #button-container {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            padding: 20px;
+        }
+
+        #redirect-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #redirect-button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 <body>
@@ -75,7 +95,9 @@
             <div id="natoOutput"></div>
         </div>
     </div>
-
+    <div id="button-container">
+        <button id="redirect-button">Go to Home Page</button>
+    </div>
     <script>
         function convertToNATO() {
             var inputText = document.getElementById('textInput').value;
