@@ -61,9 +61,28 @@
             font-size: 1.2em;
             margin-top: 20px;
         }
+
+        #button-container {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            padding: 20px;
+        }
+
+        #redirect-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #redirect-button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
-<!-- ... (other code) ... -->
 
 <body>
     <div id="app-container">
@@ -72,13 +91,14 @@
         </div>
         <div id="calculator-container">
             <input type="date" id="dateInput" placeholder="Select your date of birth" required>
-            <!-- Change the onclick attribute to match the function name -->
             <button id="calculate-button" onclick="calculateAge()">Calculate</button>
             <h3>Result:</h3>
             <div id="result"></div>
         </div>
     </div>
-
+    <div id="button-container">
+        <button id="redirect-button">Go to Home Page</button>
+    </div>
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const dateInput = document.getElementById("dateInput");

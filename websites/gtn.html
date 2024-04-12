@@ -73,6 +73,26 @@
             right: 10px;
             width: 10%;
         }
+
+        #button-container {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            padding: 20px;
+        }
+
+        #redirect-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #redirect-button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 
@@ -91,7 +111,9 @@
         </div>
     </div>
     <button class="play-again-button" onclick="window.location.reload();">Play Again</button>
-
+    <div id="button-container">
+        <button id="redirect-button">Go to Home Page</button>
+    </div>
     <script>
         const secretNumber = Math.floor(Math.random() * 100) + 1;
 

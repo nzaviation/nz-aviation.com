@@ -102,6 +102,26 @@
       margin-top: 20px;
       font-size: 16px;
     }
+
+    #button-container {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            padding: 20px;
+        }
+
+        #redirect-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #redirect-button:hover {
+            background-color: #666;
+        }
   </style>
 </head>
 <body>
@@ -128,7 +148,9 @@
     <button class="generate-button" onclick="generatePassword()">Generate Password</button>
     <div class="strength" id="passwordStrength"></div>
   </div>
-
+  <div id="button-container">
+    <button id="redirect-button">Go to Home Page</button>
+</div>
   <script>
     const passwordInput = document.getElementById("password");
     const copyButton = document.getElementById("copyButton");
