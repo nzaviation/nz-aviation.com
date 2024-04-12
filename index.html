@@ -34,7 +34,9 @@
         </ul>
       </nav>
     </header>
-
+    <div id="loading-screen">
+      <div class="loader"></div>
+  </div>
     <section class="homepage" id="home">
       <div class="content">
         <div class="text">
@@ -94,5 +96,11 @@
         <span>&copy; 2024 Jack Palmer. All rights reserved.</span>
       </div>
     </footer>
+    <script>
+    window.onload = function() {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+    };
+    </script>
   </body>
 </html>
