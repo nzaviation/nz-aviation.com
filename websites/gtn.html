@@ -115,6 +115,14 @@
         <button id="redirect-button">Go to Home Page</button>
     </div>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
+});
+
+function redirectToHomePage() {
+    window.location.href = "https://nz-aviation.com";
+}
+
         const secretNumber = Math.floor(Math.random() * 100) + 1;
 
         function checkGuess() {
