@@ -53,8 +53,15 @@
       </section>
     <footer>
       <div>
-        <span>&copy; 2024 Jack Palmer. All rights reserved.</span>
+        <span>&copy; <span id="currentYear"></span> Jack Palmer. All rights reserved.</span>
       </div>
     </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+            var yearElement = document.getElementById('currentYear');
+            var currentYear = new Date().getFullYear();
+            yearElement.textContent = currentYear;
+        });
+    </script>
   </body>
 </html>

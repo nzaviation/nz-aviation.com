@@ -92,7 +92,7 @@
     <div data-tf-live="01HKCH9VN9K6VW22J7EX7Q9VXM"></div><script src="//embed.typeform.com/next/embed.js"></script>
     <footer>
       <div>
-        <span>&copy; 2024 Jack Palmer. All rights reserved.</span>
+        <span>&copy; <span id="currentYear"></span> Jack Palmer. All rights reserved.</span>
       </div>
     </footer>
     <script>
@@ -100,6 +100,12 @@
         document.getElementById('loading-screen').style.display = 'none';
         document.getElementById('content').style.display = 'block';
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+            var yearElement = document.getElementById('currentYear');
+            var currentYear = new Date().getFullYear();
+            yearElement.textContent = currentYear;
+        });
     </script>
   </body>
 </html>
