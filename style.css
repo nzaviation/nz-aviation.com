@@ -424,18 +424,25 @@ footer a {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 10px 30px;
   cursor: pointer;
+  color: #fff;
+  display: block;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 0 10px;
+  padding: 15px 20px;
   border-radius: 5px;
-  z-index: 1000;
+  background: #333;
+  border: 2px solid #000;
+  transition: 0.4s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
 }
 
 #backToTopBtn:hover {
   color: #000;
   background: rgba(255, 255, 255, 0.655);
+  
 }
 
 .testimonials {
