@@ -42,6 +42,11 @@ header {
 .navbar #hamburger-btn {
   cursor: pointer;
   display: none;
+  transition: transform 0.3s ease;
+}
+
+.navbar #hamburger-btn.open {
+  transform: rotate(90deg);
 }
 
 .navbar .all-links {

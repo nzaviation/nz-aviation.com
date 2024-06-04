@@ -167,18 +167,22 @@
           } else {
             backToTopBtn.style.display = "none";
           }
-        }
+        };
   
         function scrollToTop() {
           var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
 
           window.scrollTo(0, 0);
-        }
+        };
 
         document.addEventListener('DOMContentLoaded', function() {
             var yearElement = document.getElementById('currentYear');
             var currentYear = new Date().getFullYear();
             yearElement.textContent = currentYear;
+        });
+
+        document.getElementById('menu-toggler').addEventListener('change', function() {
+        document.getElementById('hamburger-btn').classList.toggle('open');
         });
     </script>
   </body>

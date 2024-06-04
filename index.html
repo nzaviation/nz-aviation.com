@@ -106,6 +106,10 @@
             var currentYear = new Date().getFullYear();
             yearElement.textContent = currentYear;
         });
+
+        document.getElementById('menu-toggler').addEventListener('change', function() {
+        document.getElementById('hamburger-btn').classList.toggle('open');
+        });
     </script>
   </body>
 </html>
