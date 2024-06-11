@@ -120,48 +120,6 @@ header a:hover, footer a:hover {
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-.websites-homepage {
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  background: url("images/Websites_background.jpeg");
-  background-position: center 65%;
-  background-size: cover;
-}
-
-.websites-homepage::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.websites-homepage .content {
-  display: flex;
-  height: 85%;
-  z-index: 3;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.websites-homepage .content h1 {
-  font-size: 60px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.websites-homepage .content .text {
-  margin-bottom: 50px;
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
-
 .content a {
   color: #000;
   display: block;
@@ -211,7 +169,7 @@ section.about {
   max-width: 1200px;
 }
 
-.about .company-info {
+.about .my-story {
   margin-top: 30px;
 }
 
@@ -239,7 +197,7 @@ section .cards .card {
   text-align: center;
 }
 
-.portfolio .cards .card {
+.favourites .cards .card {
   padding: 0 0 20px;
 }
 
@@ -251,7 +209,7 @@ section .cards .card {
   object-fit: cover;
 }
 
-.portfolio .card img {
+.favourites .card img {
   width: 100%;
   padding-bottom: 10px;
   aspect-ratio: 16 / 9;
@@ -448,37 +406,6 @@ footer a {
   color: #000;
   background: rgba(255, 255, 255, 0.655);
   
-}
-
-.testimonials {
-  padding: 50px 0;
-  background-color: #f8f8f8;
-}
-
-.testimonial-card {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-}
-
-.testimonial-card:hover {
-  transform: scale(1.05);
-}
-
-.testimonial-author {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.testimonial-quote {
-  font-style: italic;
-  margin-top: 20px;
 }
 
 .external-links {
