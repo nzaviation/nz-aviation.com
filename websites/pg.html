@@ -3,131 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Password Generator</title>
+  <title>Password Generator | nz-aviation.com</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Roboto', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background: linear-gradient(to right, #3498db, #2c3e50);
+      background: linear-gradient(to right, #2b5876, #4e4376);
+      color: #fff;
     }
 
     .container {
       text-align: center;
-      max-width: 584px;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      padding: 30px;
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     }
 
     h1 {
-      color: #333;
+      color: #ffcc00;
+      margin-bottom: 20px;
     }
 
     #password {
       margin: 20px auto;
-      padding: 10px;
+      padding: 12px;
       width: 100%;
-      font-size: 20px;
+      font-size: 18px;
       border: none;
       border-radius: 5px;
-      background-color: #f9f9f9;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #333;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       outline: none;
-      display: inline-block;
+    }
+
+    .button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 5px;
     }
 
     .copy-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background: linear-gradient(to right, #D4145A, #FBB03B);
-      color: #fff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
     }
 
     .copy-button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      transform: scale(1.05);
     }
 
     .generate-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background: linear-gradient(to right, #4E65FF, #92EFFD);
-      color: #fff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      background: linear-gradient(to right, #36d1dc, #5b86e5);
     }
+
     .generate-button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(to right, #5b86e5, #36d1dc);
+      transform: scale(1.05);
+    }
+
+    .toggle-visibility-button {
+      background: #555;
+      margin-left: 10px;
+      padding: 12px;
+    }
+
+    .toggle-visibility-button:hover {
+      background-color: #444;
+      transform: scale(1.05);
     }
 
     .options {
       margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
+
     .option {
-      display: inline-block;
-      margin-right: 10px;
+      flex: 1 1 45%;
+      margin: 10px;
     }
+
+    .option label {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #555;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
     .option input[type="checkbox"] {
       display: none;
     }
-    .option label {
-      display: inline-block;
-      padding: 8px 16px;
-      font-size: 14px;
-      background-color: #eee;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 2px;
-    }
+
     .option input[type="checkbox"]:checked + label {
-      background: linear-gradient(to right, #009245, #FCEE21);
-      color: #fff;
+      background: linear-gradient(to right, #3dcf12, #306f1e);
     }
+
     .strength {
       margin-top: 20px;
       font-size: 16px;
+      font-weight: bold;
+    }
+
+    .strength-bar {
+      height: 15px;
+      border-radius: 5px;
+      background: #333;
+      margin-top: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .strength-bar div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      transition: width 0.3s ease, background 0.3s ease;
     }
 
     #button-container {
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-            padding: 20px;
-        }
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      padding: 20px;
+    }
 
-        #redirect-button {
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+    #redirect-button {
+      background-color: #ffcc00;
+      color: #333;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-        #redirect-button:hover {
-            background-color: #666;
-        }
+    #redirect-button:hover {
+      background-color: #e6b800;
+      transform: scale(1.05);
+    }
+
+    .tooltip {
+      visibility: hidden;
+      width: 140px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -70px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+
+    .copy-button-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .show {
+      visibility: visible;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Password Generator</h1>
-    <input type="text" id="password" readonly>
-    <button class="copy-button" id="copyButton" onclick="copyPassword()">Copy to Clipboard</button>
+    <div style="position: relative;">
+      <input type="text" id="password" readonly aria-label="Generated password">
+      <button class="button toggle-visibility-button" id="toggleVisibilityButton" onclick="togglePasswordVisibility()">Show</button>
+    </div><br>
+    <div class="copy-button-container">
+      <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy to Clipboard</button>
+      <span class="tooltip" id="tooltip">Copied!</span>
+    </div>
     <div class="options">
       <div class="option">
         <input type="checkbox" id="includeUppercase">
@@ -141,37 +226,50 @@
         <input type="checkbox" id="includeSpecialCharacters">
         <label for="includeSpecialCharacters">Include Special Characters</label>
       </div>
-    </div><br>
-    <input type="range" id="passwordLength" min="3" max="30" value="12">
-    <label for="passwordLength">Password Length: <span id="lengthValue">12</span></label><br><br>
-    <button class="generate-button" onclick="generatePassword()">Generate Password</button>
-    <div class="strength" id="passwordStrength"></div>
+    </div>
+    <br>
+    <input type="range" id="passwordLength" min="3" max="30" value="12" aria-labelledby="lengthLabel">
+    <label id="lengthLabel" for="passwordLength">Password Length: <span id="lengthValue">12</span></label>
+    <br><br>
+    <button class="button generate-button" onclick="generatePassword()">Generate Password</button>
+    <div class="strength" id="passwordStrength">Password Strength:</div>
+    <div class="strength-bar"><div id="strengthBar"></div></div>
   </div>
   <div id="button-container">
-    <button id="redirect-button">Go to Home Page</button>
-</div>
+    <button id="redirect-button">Back to 'Websites'</button>
+  </div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
-});
+      document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
+    });
 
-function redirectToHomePage() {
-    window.location.href = "https://nz-aviation.com";
-}
+    function redirectToHomePage() {
+      window.location.href = "https://nz-aviation.com/websites";
+    }
 
     const passwordInput = document.getElementById("password");
     const copyButton = document.getElementById("copyButton");
+    const tooltip = document.getElementById("tooltip");
     const includeUppercaseCheckbox = document.getElementById("includeUppercase");
     const includeNumbersCheckbox = document.getElementById("includeNumbers");
     const includeSpecialCharactersCheckbox = document.getElementById("includeSpecialCharacters");
     const passwordLengthRange = document.getElementById("passwordLength");
     const lengthValue = document.getElementById("lengthValue");
     const passwordStrength = document.getElementById("passwordStrength");
+    const strengthBar = document.getElementById("strengthBar");
+    const toggleVisibilityButton = document.getElementById("toggleVisibilityButton");
 
     function copyPassword() {
       passwordInput.select();
       document.execCommand("copy");
-      alert("Password copied to clipboard!");
+      showTooltip();
+    }
+
+    function showTooltip() {
+      tooltip.classList.add("show");
+      setTimeout(() => {
+        tooltip.classList.remove("show");
+      }, 1000);
     }
 
     function generatePassword() {
@@ -197,16 +295,24 @@ function redirectToHomePage() {
     function updatePasswordStrength(password) {
       const strength = calculatePasswordStrength(password);
       let strengthText = "";
+      let barColor = "";
       if (strength < 30) {
         strengthText = "Weak";
+        barColor = "#ff4b2b";
       } else if (strength < 60) {
         strengthText = "Moderate";
+        barColor = "#ffcc00";
       } else if (strength < 80) {
         strengthText = "Strong";
+        barColor = "#36d1dc";
       } else {
         strengthText = "Very Strong";
+        barColor = "#4bd617";
       }
       passwordStrength.textContent = "Password Strength: " + strengthText;
+      passwordStrength.style.color = barColor;
+      strengthBar.style.width = strength + "%";
+      strengthBar.style.background = barColor;
     }
 
     function calculatePasswordStrength(password) {
@@ -221,7 +327,6 @@ function redirectToHomePage() {
         score += 5.0 / letters[password[i]];
       }
 
-
       const variations = {
         digits: /\d/.test(password),
         lower: /[a-z]/.test(password),
@@ -235,7 +340,7 @@ function redirectToHomePage() {
       }
       score += (variationCount - 1) * 10;
 
-      return Math.round(score);
+      return Math.min(Math.round(score), 100);
     }
 
     passwordLengthRange.addEventListener("input", function() {
@@ -245,6 +350,7 @@ function redirectToHomePage() {
     function togglePasswordVisibility() {
       const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
       passwordInput.setAttribute("type", type);
+      toggleVisibilityButton.textContent = type === "password" ? "Show" : "Hide";
     }
   </script>
 </body>
