@@ -2,103 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Guess the Number</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game | nz-aviation.com</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #2980b9, #2c3e50);
-            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #333;
             margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         #app-container {
-            width: 400px;
-            background-color: #34495e;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
         }
 
         #app-header {
-            background-color: #2c3e50;
-            padding: 15px;
-            font-size: 1.5em;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
-        #game-container {
-            padding: 20px;
+        #game-container label {
+            font-size: 1.2em;
+            color: #666;
         }
 
         #guess {
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 15px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            background-color: #2c3e50;
-            color: #fff;
+            border: 2px solid #764ba2;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #333;
+            outline: none;
+            box-sizing: border-box;
         }
 
         #submit-button {
-            background-color: #3498db;
+            background-color: #667eea;
             color: #fff;
             border: none;
             padding: 15px;
             cursor: pointer;
             width: 100%;
-            border-radius: 4px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        #submit-button:hover {
+            background-color: #5563c1;
         }
 
         #message {
-            font-size: 1.2em;
+            font-size: 1.3em;
             margin-top: 20px;
+            color: #764ba2;
+            min-height: 40px;
         }
 
-        .play-again-button {
-            background-color: #3498db;
+        .play-again-button, .redirect-button {
+            background-color: #667eea;
             color: #fff;
             border: none;
             padding: 15px;
             cursor: pointer;
-            border-radius: 4px;
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 10%;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        #button-container {
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-            padding: 20px;
-        }
-
-        #redirect-button {
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        #redirect-button:hover {
-            background-color: #666;
+        .play-again-button:hover, .redirect-button:hover {
+            background-color: #5563c1;
         }
     </style>
 </head>
-
 <body>
     <div id="app-container">
         <div id="app-header">
@@ -106,25 +108,21 @@
         </div>
         <div id="game-container">
             <label for="guess">Guess a number between 1 and 100:</label>
-            <br><br>
-            <input type="number" id="guess" min="1" max="100">
-            <br>
+            <input type="number" id="guess" min="1" max="100" placeholder="Enter your guess">
             <button id="submit-button" onclick="checkGuess()">Submit</button>
             <div id="message"></div>
+            <button class="play-again-button" onclick="window.location.reload();">Play Again</button>
+            <button class="redirect-button" onclick="redirectToHomePage()">Go to Home Page</button>
         </div>
-    </div>
-    <button class="play-again-button" onclick="window.location.reload();">Play Again</button>
-    <div id="button-container">
-        <button id="redirect-button">Go to Home Page</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
-});
+            document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
+        });
 
-function redirectToHomePage() {
-    window.location.href = "https://nz-aviation.com";
-}
+        function redirectToHomePage() {
+            window.location.href = "https://nz-aviation.com";
+        }
 
         const secretNumber = Math.floor(Math.random() * 100) + 1;
 
@@ -132,16 +130,19 @@ function redirectToHomePage() {
             const guessedNumber = parseInt(document.getElementById("guess").value);
             const message = document.getElementById("message");
 
+            if (!guessedNumber || guessedNumber < 1 || guessedNumber > 100) {
+                message.innerHTML = "Please enter a valid number between 1 and 100.";
+                return;
+            }
+
             if (guessedNumber === secretNumber) {
-                message.innerHTML = `Congratulations! You guessed the number.`;
+                message.innerHTML = `🎉 Congratulations! You guessed the number.`;
             } else if (guessedNumber > secretNumber) {
-                message.innerHTML = "Too high. Try a lower number.";
+                message.innerHTML = "📉 Too high. Try a lower number.";
             } else {
-                message.innerHTML = "Too low. Try a higher number.";
+                message.innerHTML = "📈 Too low. Try a higher number.";
             }
         }
     </script>
-
 </body>
-
 </html>
