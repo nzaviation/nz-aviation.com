@@ -156,6 +156,7 @@
       cursor: pointer;
       border-radius: 4px;
       transition: background-color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
     }
 
     #redirect-button:hover {
@@ -236,17 +237,9 @@
     <div class="strength-bar"><div id="strengthBar"></div></div>
   </div>
   <div id="button-container">
-    <button id="redirect-button">Back to 'Websites'</button>
+    <a href="/websites" id="redirect-button">Back to 'Websites'</a>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
-    });
-
-    function redirectToHomePage() {
-      window.location.href = "https://nz-aviation.com/websites";
-    }
-
     const passwordInput = document.getElementById("password");
     const copyButton = document.getElementById("copyButton");
     const tooltip = document.getElementById("tooltip");
