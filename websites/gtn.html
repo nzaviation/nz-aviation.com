@@ -94,7 +94,6 @@
             margin-top: 20px;
             width: 100%;
             box-sizing: border-box;
-            text-decoration: none;
         }
 
         .play-again-button:hover, .redirect-button:hover {
@@ -113,10 +112,18 @@
             <button id="submit-button" onclick="checkGuess()">Submit</button>
             <div id="message"></div>
             <button class="play-again-button" onclick="window.location.reload();">Play Again</button>
-            <a href="/websites" id="redirect-button">Back to 'Websites'</a>
+            <button class="redirect-button" onclick="redirectToHomePage()">Go to Home Page</button>
         </div>
     </div>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
+        });
+
+        function redirectToHomePage() {
+            window.location.href = "https://nz-aviation.com";
+        }
+
         const secretNumber = Math.floor(Math.random() * 100) + 1;
 
         function checkGuess() {
