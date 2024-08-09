@@ -88,6 +88,7 @@
             cursor: pointer;
             border-radius: 5px;
             font-size: 1em;
+            text-decoration: none;
         }
 
         #redirect-button:hover {
@@ -109,17 +110,9 @@
         </div>
     </div>
     <div id="button-container">
-        <button id="redirect-button">Go to Home Page</button>
+        <a href="/websites" id="redirect-button">Back to 'Websites'</a>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('redirect-button').addEventListener('click', redirectToHomePage);
-        });
-
-        function redirectToHomePage() {
-            window.location.href = "https://nz-aviation.com";
-        }
-
         document.addEventListener("DOMContentLoaded", function () {
             const dateInput = document.getElementById("dateInput");
             dateInput.max = new Date().toISOString().split("T")[0];
