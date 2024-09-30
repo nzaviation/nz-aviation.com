@@ -43,8 +43,8 @@
             max-width: 400px;
             width: 100%;
             position: relative;
-            max-height: 100%; /* Ensure the card doesn't exceed the viewport height */
-            overflow-y: auto; /* Enable scrolling inside the card if needed */
+            max-height: 100%; 
+            overflow-y: auto;
             animation: slideUp 0.5s ease-out;
         }
 
@@ -81,26 +81,6 @@
         .input-field:focus {
             border-color: #4CAF50;
             transform: scale(1.02);
-        }
-
-        .button-container {
-            margin-top: 25px;
-        }
-
-        .calculate-btn {
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
-            color: #fff;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .calculate-btn:hover {
-            background: linear-gradient(135deg, #ff7eb3, #ff758c);
-            transform: translateY(-5px);
         }
 
         .result {
@@ -162,9 +142,6 @@
             <div class="input-container">
                 <label for="dateInput">Select Date & Time:</label>
                 <input type="datetime-local" id="dateInput" class="input-field animate-input">
-                <div class="button-container">
-                    <button id="calculateBtn" class="calculate-btn animate-btn">Calculate</button>
-                </div>
             </div>
             <div id="errorMsg" class="error">Please select a valid date and time.</div>
             <div id="result" class="result hidden">
@@ -178,14 +155,24 @@
             </div>
         </div>
     </div>
+
     <script>
-        document.getElementById('calculateBtn').addEventListener('click', function() {
+        let intervalId;
+        let debounceTimeout;
+
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function updateTimeSince() {
             const dateInput = document.getElementById('dateInput').value;
             const resultContainer = document.getElementById('result');
             const errorMsg = document.getElementById('errorMsg');
-            
+
             if (!dateInput) {
+                errorMsg.textContent = 'Please select a valid date and time.';
                 errorMsg.style.display = 'block';
+                resultContainer.classList.add('hidden');
                 return;
             }
 
@@ -197,6 +184,7 @@
             if (selectedDate > currentDate) {
                 errorMsg.textContent = 'Please select a past date.';
                 errorMsg.style.display = 'block';
+                resultContainer.classList.add('hidden');
                 return;
             }
 
@@ -209,16 +197,32 @@
             const months = Math.floor(days / 30.44);
             const years = Math.floor(days / 365.25);
 
-            document.getElementById('years').textContent = years;
-            document.getElementById('months').textContent = months;
-            document.getElementById('weeks').textContent = weeks;
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('years').textContent = formatNumberWithCommas(years);
+            document.getElementById('months').textContent = formatNumberWithCommas(months);
+            document.getElementById('weeks').textContent = formatNumberWithCommas(weeks);
+            document.getElementById('days').textContent = formatNumberWithCommas(days);
+            document.getElementById('hours').textContent = formatNumberWithCommas(hours);
+            document.getElementById('minutes').textContent = formatNumberWithCommas(minutes);
+            document.getElementById('seconds').textContent = formatNumberWithCommas(seconds);
 
             resultContainer.classList.remove('hidden');
-        });
+        }
+
+        function debounceUpdate() {
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
+            debounceTimeout = setTimeout(() => {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                }
+
+                updateTimeSince();
+                intervalId = setInterval(updateTimeSince, 1000);
+            }, 300);
+        }
+
+        document.getElementById('dateInput').addEventListener('input', debounceUpdate);
     </script>
 </body>
 </html>
