@@ -6,7 +6,6 @@
     <title>Time Since Calculator | nz-aviation.com</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -18,151 +17,133 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #9face6);
+            background: radial-gradient(circle at center, #74ebd5, #9face6);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-y: auto;
             padding: 20px;
+            overflow: hidden;
         }
 
         .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-width: 450px;
             width: 100%;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             text-align: center;
-            max-width: 400px;
-            width: 100%;
-            position: relative;
-            max-height: 100%; 
-            overflow-y: auto;
-            animation: slideUp 0.5s ease-out;
+            animation: slideIn 0.6s ease-out;
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 32px;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 600;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards 0.5s;
+            letter-spacing: 1px;
         }
 
         .input-container {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+            text-align: left;
         }
 
         label {
-            display: block;
             font-size: 16px;
             color: #555;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            display: block;
+            font-weight: 500;
         }
 
         .input-field {
             width: 100%;
-            padding: 15px;
+            padding: 12px 15px;
             font-size: 16px;
-            border-radius: 15px;
-            border: 1px solid #ddd;
-            outline: none;
-            transition: border-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
         .input-field:focus {
             border-color: #4CAF50;
             transform: scale(1.02);
-        }
-
-        .result {
-            margin-top: 30px;
-            text-align: left;
-        }
-
-        .result-item {
-            background-color: #f7f8fa;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .hidden {
-            display: none;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
         }
 
         .error {
-            color: red;
+            color: #ff4d4d;
             font-size: 14px;
-            margin-top: 10px;
+            margin-top: 5px;
             display: none;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+        .result {
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 1s ease-out forwards;
+            transition: transform 0.3s ease-in-out;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-            }
-            to {
-                transform: translateY(0);
-            }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            background: #f3f4f6;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 18px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: popIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 500px) {
-            .card {
-                max-width: 90%;
+            .container {
                 padding: 20px;
             }
         }
-
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card animate-card">
-            <h1 class="animate-fade">Time Since Calculator</h1>
-            <div class="input-container">
-                <label for="dateInput">Select Date & Time:</label>
-                <input type="datetime-local" id="dateInput" class="input-field animate-input">
-            </div>
-            <div id="errorMsg" class="error">Please select a valid date and time.</div>
-            <div id="result" class="result hidden">
-                <div class="result-item animate-result"><strong>Years:</strong> <span id="years"></span></div>
-                <div class="result-item animate-result"><strong>Months:</strong> <span id="months"></span></div>
-                <div class="result-item animate-result"><strong>Weeks:</strong> <span id="weeks"></span></div>
-                <div class="result-item animate-result"><strong>Days:</strong> <span id="days"></span></div>
-                <div class="result-item animate-result"><strong>Hours:</strong> <span id="hours"></span></div>
-                <div class="result-item animate-result"><strong>Minutes:</strong> <span id="minutes"></span></div>
-                <div class="result-item animate-result"><strong>Seconds:</strong> <span id="seconds"></span></div>
-            </div>
+        <h1>Time Since Calculator</h1>
+        <div class="input-container">
+            <label for="dateInput">Select Date & Time:</label>
+            <input type="datetime-local" id="dateInput" class="input-field">
+            <div id="errorMsg" class="error">Please select a valid past date.</div>
+        </div>
+        <div id="result" class="result">
+            <div class="result-item"><strong>Years:</strong> <span id="years">0</span></div>
+            <div class="result-item"><strong>Months:</strong> <span id="months">0</span></div>
+            <div class="result-item"><strong>Weeks:</strong> <span id="weeks">0</span></div>
+            <div class="result-item"><strong>Days:</strong> <span id="days">0</span></div>
+            <div class="result-item"><strong>Hours:</strong> <span id="hours">0</span></div>
+            <div class="result-item"><strong>Minutes:</strong> <span id="minutes">0</span></div>
+            <div class="result-item"><strong>Seconds:</strong> <span id="seconds">0</span></div>
         </div>
     </div>
 
     <script>
         let intervalId;
-        let debounceTimeout;
-
-        function formatNumberWithCommas(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
 
         function updateTimeSince() {
             const dateInput = document.getElementById('dateInput').value;
@@ -170,59 +151,71 @@
             const errorMsg = document.getElementById('errorMsg');
 
             if (!dateInput) {
-                errorMsg.textContent = 'Please select a valid date and time.';
-                errorMsg.style.display = 'block';
-                resultContainer.classList.add('hidden');
+                showError('Please select a valid date and time.');
+                return;
+            }
+
+            const selectedDate = new Date(dateInput);
+            const currentDate = new Date();
+
+            if (selectedDate > currentDate) {
+                showError('Please select a past date.');
                 return;
             }
 
             errorMsg.style.display = 'none';
 
-            const selectedDate = new Date(dateInput);
-            const currentDate = new Date();
-            
-            if (selectedDate > currentDate) {
-                errorMsg.textContent = 'Please select a past date.';
-                errorMsg.style.display = 'block';
-                resultContainer.classList.add('hidden');
-                return;
-            }
+            let diffInMs = currentDate - selectedDate;
 
-            const diffInMilliseconds = currentDate - selectedDate;
-            const seconds = Math.floor(diffInMilliseconds / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
-            const weeks = Math.floor(days / 7);
-            const months = Math.floor(days / 30.44);
-            const years = Math.floor(days / 365.25);
+            const years = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 365.25));
+            diffInMs %= (1000 * 60 * 60 * 24 * 365.25);
 
-            document.getElementById('years').textContent = formatNumberWithCommas(years);
-            document.getElementById('months').textContent = formatNumberWithCommas(months);
-            document.getElementById('weeks').textContent = formatNumberWithCommas(weeks);
-            document.getElementById('days').textContent = formatNumberWithCommas(days);
-            document.getElementById('hours').textContent = formatNumberWithCommas(hours);
-            document.getElementById('minutes').textContent = formatNumberWithCommas(minutes);
-            document.getElementById('seconds').textContent = formatNumberWithCommas(seconds);
+            const months = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 30.44));
+            diffInMs %= (1000 * 60 * 60 * 24 * 30.44);
 
-            resultContainer.classList.remove('hidden');
+            const weeks = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
+            diffInMs %= (1000 * 60 * 60 * 24 * 7);
+
+            const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+            diffInMs %= (1000 * 60 * 60 * 24);
+
+            const hours = Math.floor(diffInMs / (1000 * 60 * 60));
+            diffInMs %= (1000 * 60 * 60);
+
+            const minutes = Math.floor(diffInMs / (1000 * 60));
+            diffInMs %= (1000 * 60);
+
+            const seconds = Math.floor(diffInMs / 1000);
+
+            displayResults({ years, months, weeks, days, hours, minutes, seconds });
         }
 
-        function debounceUpdate() {
-            if (debounceTimeout) {
-                clearTimeout(debounceTimeout);
-            }
-            debounceTimeout = setTimeout(() => {
-                if (intervalId) {
-                    clearInterval(intervalId);
-                }
-
-                updateTimeSince();
-                intervalId = setInterval(updateTimeSince, 1000);
-            }, 300);
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            document.getElementById('result').style.display = 'none';
         }
 
-        document.getElementById('dateInput').addEventListener('input', debounceUpdate);
+        function displayResults(data) {
+            for (const [key, value] of Object.entries(data)) {
+                document.getElementById(key).textContent = value.toLocaleString();
+            }
+            document.getElementById('result').style.display = 'block';
+
+            const resultItems = document.querySelectorAll('.result-item');
+            resultItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            });
+        }
+
+        document.getElementById('dateInput').addEventListener('input', () => {
+            clearInterval(intervalId);
+            updateTimeSince();
+            intervalId = setInterval(updateTimeSince, 1000);
+        });
     </script>
 </body>
 </html>
