@@ -4,35 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Password Generator | nz-aviation.com</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-  <link rel="manifest" href="/manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background: linear-gradient(to right, #2b5876, #4e4376);
+      background: linear-gradient(135deg, #2b5876, #4e4376);
       color: #fff;
     }
 
     .container {
       text-align: center;
-      max-width: 600px;
-      padding: 30px;
-      background-color: #1c1c1c;
-      border-radius: 12px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      padding: 40px;
+      background: rgba(30, 30, 30, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
     h1 {
       color: #ffcc00;
+      font-size: 2em;
       margin-bottom: 20px;
+      letter-spacing: 1px;
     }
 
     #password {
@@ -41,74 +40,64 @@
       width: 100%;
       font-size: 18px;
       border: none;
-      border-radius: 5px;
-      background-color: #333;
+      border-radius: 8px;
+      background-color: #444;
       color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       outline: none;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     .button {
       padding: 12px 24px;
       font-size: 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      margin: 5px;
+      transition: all 0.3s ease;
+      margin: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .copy-button {
       background: linear-gradient(to right, #ff416c, #ff4b2b);
     }
 
-    .copy-button:hover {
-      background: linear-gradient(to right, #ff4b2b, #ff416c);
-      transform: scale(1.05);
-    }
-
     .generate-button {
       background: linear-gradient(to right, #36d1dc, #5b86e5);
     }
 
-    .generate-button:hover {
-      background: linear-gradient(to right, #5b86e5, #36d1dc);
-      transform: scale(1.05);
-    }
-
     .toggle-visibility-button {
       background: #555;
-      margin-left: 10px;
-      padding: 12px;
     }
 
-    .toggle-visibility-button:hover {
-      background-color: #444;
+    .button:hover {
       transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     .options {
-      margin-top: 20px;
+      margin: 20px 0;
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
-    }
-
-    .option {
-      flex: 1 1 45%;
-      margin: 10px;
+      justify-content: space-between;
     }
 
     .option label {
-      display: inline-block;
-      padding: 10px 20px;
+      padding: 10px;
       font-size: 14px;
       background-color: #555;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
       color: #fff;
       transition: background-color 0.3s ease;
+      display: block;
+      text-align: center;
     }
 
     .option input[type="checkbox"] {
@@ -117,21 +106,22 @@
 
     .option input[type="checkbox"]:checked + label {
       background: linear-gradient(to right, #3dcf12, #306f1e);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .strength {
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: bold;
+    #passwordLength {
+      width: 100%;
+      margin-top: 15px;
     }
 
     .strength-bar {
-      height: 15px;
-      border-radius: 5px;
+      margin-top: 15px;
+      height: 8px;
       background: #333;
-      margin-top: 10px;
+      border-radius: 5px;
       overflow: hidden;
       position: relative;
+      transition: background 0.3s ease;
     }
 
     .strength-bar div {
@@ -141,64 +131,22 @@
       transition: width 0.3s ease, background 0.3s ease;
     }
 
-    #button-container {
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      padding: 20px;
-    }
-
-    #redirect-button {
-      background-color: #ffcc00;
-      color: #333;
-      border: none;
-      padding: 15px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      text-decoration: none;
-    }
-
-    #redirect-button:hover {
-      background-color: #e6b800;
-      transform: scale(1.05);
-    }
-
-    .tooltip {
-      visibility: hidden;
-      width: 140px;
-      background-color: #333;
+    .copy-notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #444;
       color: #fff;
-      text-align: center;
-      border-radius: 5px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -70px;
+      padding: 10px 15px;
+      border-radius: 8px;
       opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .tooltip::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: #333 transparent transparent transparent;
-    }
-
-    .copy-button-container {
-      position: relative;
-      display: inline-block;
+      transition: opacity 0.5s ease;
+      font-size: 0.9em;
+      text-align: center;
     }
 
     .show {
-      visibility: visible;
       opacity: 1;
     }
   </style>
@@ -206,63 +154,54 @@
 <body>
   <div class="container">
     <h1>Password Generator</h1>
-    <div style="position: relative;">
-      <input type="text" id="password" readonly aria-label="Generated password">
+    <div>
+      <input type="text" id="password" readonly aria-label="Generated password" title="Click to Copy Password" onclick="copyPassword()">
       <button class="button toggle-visibility-button" id="toggleVisibilityButton" onclick="togglePasswordVisibility()">Show</button>
-    </div><br>
-    <div class="copy-button-container">
-      <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy to Clipboard</button>
-      <span class="tooltip" id="tooltip">Copied!</span>
     </div>
     <div class="options">
       <div class="option">
         <input type="checkbox" id="includeUppercase">
-        <label for="includeUppercase">Include Uppercase Letters</label>
+        <label for="includeUppercase">Uppercase Letters</label>
       </div>
       <div class="option">
         <input type="checkbox" id="includeNumbers">
-        <label for="includeNumbers">Include Numbers</label>
+        <label for="includeNumbers">Numbers</label>
       </div>
       <div class="option">
         <input type="checkbox" id="includeSpecialCharacters">
-        <label for="includeSpecialCharacters">Include Special Characters</label>
+        <label for="includeSpecialCharacters">Special Characters</label>
       </div>
     </div>
-    <br>
+    <label>Password Length: <span id="lengthValue">12</span></label>
     <input type="range" id="passwordLength" min="3" max="30" value="12" aria-labelledby="lengthLabel">
-    <label id="lengthLabel" for="passwordLength">Password Length: <span id="lengthValue">12</span></label>
     <br><br>
     <button class="button generate-button" onclick="generatePassword()">Generate Password</button>
-    <div class="strength" id="passwordStrength">Password Strength:</div>
+    <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy to Clipboard</button>
     <div class="strength-bar"><div id="strengthBar"></div></div>
   </div>
-  <div id="button-container">
-    <a href="/websites" id="redirect-button">Back to 'Websites'</a>
-  </div>
+
+  <div id="copyNotification" class="copy-notification">Password copied to clipboard!</div>
+
   <script>
     const passwordInput = document.getElementById("password");
-    const copyButton = document.getElementById("copyButton");
-    const tooltip = document.getElementById("tooltip");
+    const copyNotification = document.getElementById("copyNotification");
     const includeUppercaseCheckbox = document.getElementById("includeUppercase");
     const includeNumbersCheckbox = document.getElementById("includeNumbers");
     const includeSpecialCharactersCheckbox = document.getElementById("includeSpecialCharacters");
     const passwordLengthRange = document.getElementById("passwordLength");
     const lengthValue = document.getElementById("lengthValue");
-    const passwordStrength = document.getElementById("passwordStrength");
     const strengthBar = document.getElementById("strengthBar");
     const toggleVisibilityButton = document.getElementById("toggleVisibilityButton");
 
     function copyPassword() {
-      passwordInput.select();
-      document.execCommand("copy");
-      showTooltip();
+      navigator.clipboard.writeText(passwordInput.value).then(() => {
+        showCopyNotification();
+      });
     }
 
-    function showTooltip() {
-      tooltip.classList.add("show");
-      setTimeout(() => {
-        tooltip.classList.remove("show");
-      }, 1000);
+    function showCopyNotification() {
+      copyNotification.classList.add("show");
+      setTimeout(() => copyNotification.classList.remove("show"), 2000);
     }
 
     function generatePassword() {
@@ -276,49 +215,26 @@
       if (includeNumbers) charset += "0123456789";
       if (includeSpecialCharacters) charset += "!@#$%^&*()-_=+";
 
-      let password = "";
-      for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        password += charset[randomIndex];
-      }
+      let password = Array.from({ length }, () => charset[Math.floor(Math.random() * charset.length)]).join('');
       passwordInput.value = password;
       updatePasswordStrength(password);
     }
 
     function updatePasswordStrength(password) {
-      const strength = calculatePasswordStrength(password);
-      let strengthText = "";
-      let barColor = "";
-      if (strength < 30) {
-        strengthText = "Weak";
-        barColor = "#ff4b2b";
-      } else if (strength < 60) {
-        strengthText = "Moderate";
-        barColor = "#ffcc00";
-      } else if (strength < 80) {
-        strengthText = "Strong";
-        barColor = "#36d1dc";
-      } else {
-        strengthText = "Very Strong";
-        barColor = "#4bd617";
-      }
-      passwordStrength.textContent = "Password Strength: " + strengthText;
-      passwordStrength.style.color = barColor;
-      strengthBar.style.width = strength + "%";
-      strengthBar.style.background = barColor;
+      let score = calculatePasswordStrength(password);
+      strengthBar.style.width = score + "%";
+      strengthBar.style.background = score < 30 ? "#ff4b2b" : score < 60 ? "#ffcc00" : score < 80 ? "#36d1dc" : "#4bd617";
     }
 
     function calculatePasswordStrength(password) {
       let score = 0;
-      if (!password) {
-        return score;
-      }
+      if (!password) return score;
 
       const letters = {};
-      for (let i = 0; i < password.length; i++) {
-        letters[password[i]] = (letters[password[i]] || 0) + 1;
-        score += 5.0 / letters[password[i]];
-      }
+      password.split("").forEach(char => {
+        letters[char] = (letters[char] || 0) + 1;
+        score += 5.0 / letters[char];
+      });
 
       const variations = {
         digits: /\d/.test(password),
@@ -327,22 +243,19 @@
         nonWords: /\W/.test(password),
       };
 
-      let variationCount = 0;
-      for (const key in variations) {
-        variationCount += variations[key] === true ? 1 : 0;
-      }
+      const variationCount = Object.values(variations).filter(Boolean).length;
       score += (variationCount - 1) * 10;
 
       return Math.min(Math.round(score), 100);
     }
 
-    passwordLengthRange.addEventListener("input", function() {
+    passwordLengthRange.addEventListener("input", () => {
       lengthValue.textContent = passwordLengthRange.value;
     });
 
     function togglePasswordVisibility() {
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
       toggleVisibilityButton.textContent = type === "password" ? "Show" : "Hide";
     }
   </script>
