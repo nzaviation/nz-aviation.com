@@ -41,6 +41,7 @@
       margin: 20px auto;
       padding: 12px;
       width: 100%;
+      box-sizing: border-box;
       font-size: 18px;
       border: none;
       border-radius: 8px;
@@ -117,22 +118,37 @@
       margin-top: 15px;
     }
 
-    .strength-bar {
-      margin-top: 15px;
-      height: 8px;
-      background: #333;
-      border-radius: 5px;
-      overflow: hidden;
-      position: relative;
-      transition: background 0.3s ease;
-    }
+    .strength-container {
+  margin-top: 15px;
+  text-align: left;
+  width: 100%;
+  position: relative;
+}
 
-    .strength-bar div {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(to right, #ff4b2b, #ff416c);
-      transition: width 0.3s ease, background 0.3s ease;
-    }
+.strength-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.strength-bar {
+  height: 8px;
+  background: #333;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.strength-bar div {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  transition: width 0.3s ease, background 0.3s ease;
+}
 
     .copy-notification {
       position: fixed;
@@ -180,7 +196,16 @@
     <br><br>
     <button class="button generate-button" onclick="generatePassword()">Generate Password</button>
     <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy to Clipboard</button>
-    <div class="strength-bar"><div id="strengthBar"></div></div>
+    <div class="strength-container">
+        <div class="strength-bar">
+          <div id="strengthBar"></div>
+        </div>
+        <div class="strength-labels">
+          <span>Weak</span>
+          <span>Moderate</span>
+          <span>Strong</span>
+        </div>
+    </div>      
   </div>
 
   <div id="copyNotification" class="copy-notification">Password copied to clipboard!</div>
@@ -226,7 +251,7 @@
     function updatePasswordStrength(password) {
       let score = calculatePasswordStrength(password);
       strengthBar.style.width = score + "%";
-      strengthBar.style.background = score < 30 ? "#ff4b2b" : score < 60 ? "#ffcc00" : score < 80 ? "#36d1dc" : "#4bd617";
+      strengthBar.style.background = score < 30 ? "#ff4b2b" : score < 60 ? "#ffcc00" : score < 80 ? "#36d1dc" : score < 100 ? "#f203ff" : "#4bd617";
     }
 
     function calculatePasswordStrength(password) {
