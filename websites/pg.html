@@ -85,23 +85,25 @@
       filter: brightness(1.1);
     }
 
+    
+
     .options {
       margin: 20px 0;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
     }
 
     .option label {
-      padding: 10px;
-      font-size: 14px;
+      padding: 8px 12px;
+      font-size: 0.9em;
       background-color: #555;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       color: #fff;
-      transition: background-color 0.3s ease;
-      display: block;
+      display: inline-block;
       text-align: center;
+      margin: 5px;
     }
 
     .option input[type="checkbox"] {
@@ -110,45 +112,43 @@
 
     .option input[type="checkbox"]:checked + label {
       background: linear-gradient(to right, #3dcf12, #306f1e);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     #passwordLength {
       width: 100%;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .strength-container {
-  margin-top: 15px;
-  text-align: left;
-  width: 100%;
-  position: relative;
-}
+      margin-top: 15px;
+      text-align: left;
+      width: 100%;
+    }
 
-.strength-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5px;
-  font-size: 0.9em;
-  color: #ccc;
-  font-weight: 400;
-}
+    .strength-bar {
+      height: 8px;
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.3s ease;
+    }
 
-.strength-bar {
-  height: 8px;
-  background: #333;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-  transition: background 0.3s ease;
-}
+    .strength-bar div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      transition: width 0.3s ease;
+    }
 
-.strength-bar div {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
-  transition: width 0.3s ease, background 0.3s ease;
-}
+    .strength-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 0.8em;
+      color: #ccc;
+    }
 
     .copy-notification {
       position: fixed;
@@ -163,6 +163,7 @@
       transition: opacity 0.5s ease;
       font-size: 0.9em;
       text-align: center;
+      z-index: 10;
     }
 
     .show {
@@ -195,7 +196,7 @@
     <input type="range" id="passwordLength" min="3" max="30" value="12" aria-labelledby="lengthLabel">
     <br><br>
     <button class="button generate-button" onclick="generatePassword()">Generate Password</button>
-    <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy to Clipboard</button>
+    <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy Password</button>
     <div class="strength-container">
         <div class="strength-bar">
           <div id="strengthBar"></div>
@@ -251,7 +252,7 @@
     function updatePasswordStrength(password) {
       let score = calculatePasswordStrength(password);
       strengthBar.style.width = score + "%";
-      strengthBar.style.background = score < 30 ? "#ff4b2b" : score < 60 ? "#ffcc00" : score < 80 ? "#36d1dc" : score < 100 ? "#f203ff" : "#4bd617";
+      strengthBar.style.background = score < 20 ? "#ff4b2b" : score < 50 ? "#ffcc00" : score < 70 ? "#36d1dc" : score < 100 ? "#f203ff" : "#4bd617";
     }
 
     function calculatePasswordStrength(password) {
