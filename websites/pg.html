@@ -69,11 +69,11 @@
     }
 
     .copy-button {
-      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      background: #ff4b2b;
     }
 
     .generate-button {
-      background: linear-gradient(to right, #36d1dc, #5b86e5);
+      background: #36d1dc; 
     }
 
     .toggle-visibility-button {
@@ -84,8 +84,6 @@
       transform: scale(1.05);
       filter: brightness(1.1);
     }
-
-    
 
     .options {
       margin: 20px 0;
@@ -111,7 +109,7 @@
     }
 
     .option input[type="checkbox"]:checked + label {
-      background: linear-gradient(to right, #3dcf12, #306f1e);
+      background: #4bd617;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -148,6 +146,10 @@
       margin-top: 5px;
       font-size: 0.8em;
       color: #ccc;
+    }
+
+    .back-button {
+      background: #6a11cb;
     }
 
     .copy-notification {
@@ -195,8 +197,8 @@
     <label>Password Length: <span id="lengthValue">12</span></label>
     <input type="range" id="passwordLength" min="3" max="30" value="12" aria-labelledby="lengthLabel">
     <br><br>
-    <button class="button generate-button" onclick="generatePassword()">Generate Password</button>
-    <button class="button copy-button" id="copyButton" onclick="copyPassword()">Copy Password</button>
+    <button class="button generate-button" onclick="generatePassword()"><b>Generate Password</b></button>
+    <button class="button copy-button" id="copyButton" onclick="copyPassword()"><b>Copy Password</b></button>
     <div class="strength-container">
         <div class="strength-bar">
           <div id="strengthBar"></div>
@@ -206,9 +208,10 @@
           <span>Moderate</span>
           <span>Strong</span>
         </div>
-    </div>      
+    </div><br>
+    <button class="button back-button" onclick="window.location.href='https://www.nz-aviation.com/websites'">Back to Websites</button>  
   </div>
-
+  
   <div id="copyNotification" class="copy-notification">Password copied to clipboard!</div>
 
   <script>
