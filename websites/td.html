@@ -14,6 +14,7 @@
       --accent-color: #00796B;
       --text-color-light: #101114;
       --text-color-dark: #F9F9F9;
+      --error-color: #FF5555;
     }
 
     body {
@@ -28,6 +29,13 @@
       color: var(--text-color-dark);
     }
 
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 0;
+      padding: 10px 0;
+    }
+
     .wrapper {
       width: 700px;
       max-width: 100%;
@@ -40,6 +48,7 @@
       justify-content: center;
       gap: 15px;
       list-style: none;
+      flex-wrap: wrap;
     }
 
     #day-nav li {
@@ -77,6 +86,7 @@
       padding: 10px;
       border: 2px solid var(--accent-color);
       border-radius: 20px;
+      transition: border-color 0.3s ease;
     }
 
     #add-button {
@@ -114,18 +124,47 @@
       opacity: 0.6;
     }
 
+    .todo-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--primary-color-light);
+      border: 2px solid var(--accent-color);
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .todo-checkbox.checked {
+      background-color: var(--accent-color);
+      transform: scale(1.2);
+    }
+
     .todo-actions button {
       margin-left: 10px;
       border: none;
-      border-radius: 50%;
-      padding: 5px 10px;
+      border-radius: 5px;
+      padding: 8px 15px;
       background-color: var(--error-color);
       color: white;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .todo-actions button:hover {
-      background-color: #ff5555;
+      background-color: #ff3333;
+    }
+
+    @media (max-width: 600px) {
+      .wrapper {
+        width: 90%;
+      }
+
+      #day-nav li {
+        padding: 8px 15px;
+      }
+
+      #todo-input {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -144,7 +183,7 @@
       </ul>
     </nav>
   </header>
-  <button class="toggle-dark-mode">Dark Mode</button>
+  <button class="toggle-dark-mode">Toggle Dark Mode</button>
   <h1>Todo App</h1>
   <div class="wrapper">
     <form id="todo-form">
@@ -217,10 +256,9 @@
         const li = document.createElement('li');
         li.className = `todo ${todo.completed ? 'completed' : ''}`;
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = todo.completed;
-        checkbox.addEventListener('change', () => toggleComplete(todo));
+        const checkbox = document.createElement('div');
+        checkbox.className = `todo-checkbox ${todo.completed ? 'checked' : ''}`;
+        checkbox.addEventListener('click', () => toggleComplete(todo));
 
         const text = document.createElement('span');
         text.textContent = todo.task;
@@ -229,7 +267,11 @@
         deleteBtn.textContent = 'Delete';
         deleteBtn.addEventListener('click', () => deleteTask(todo));
 
-        li.append(checkbox, text, deleteBtn);
+        const actions = document.createElement('div');
+        actions.className = 'todo-actions';
+        actions.appendChild(deleteBtn);
+
+        li.append(checkbox, text, actions);
         todoList.appendChild(li);
       });
     }
@@ -246,19 +288,23 @@
       loadTodos();
     }
 
-    filter.addEventListener('change', loadTodos);
-
     function saveTodos() {
       localStorage.setItem('todos', JSON.stringify(todos));
     }
 
+    filter.addEventListener('change', loadTodos);
+
     darkModeToggle.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', isDark);
+      const isDarkMode = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
     });
 
     function setDarkMode(isDark) {
-      document.body.classList.toggle('dark-mode', isDark);
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
     }
   </script>
 </body>
