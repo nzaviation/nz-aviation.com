@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo App</title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Application | nz-aviation.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <style>
     :root {
       --background-light: #F9F9F9;
       --background-dark: #101114;
@@ -96,6 +100,7 @@
       color: white;
       border-radius: 20px;
       cursor: pointer;
+      margin-top: 15px; /* Added spacing between the input and the button */
     }
 
     .filter {
@@ -173,18 +178,18 @@
   <header>
     <nav>
       <ul id="day-nav">
-        <li data-day="0">Sunday</li>
-        <li data-day="1">Monday</li>
+        <li data-day="1">Monday</li> <!-- Changed order to start with Monday -->
         <li data-day="2">Tuesday</li>
         <li data-day="3">Wednesday</li>
         <li data-day="4">Thursday</li>
         <li data-day="5">Friday</li>
         <li data-day="6">Saturday</li>
+        <li data-day="0">Sunday</li> <!-- Moved Sunday to the end -->
       </ul>
     </nav>
   </header>
   <button class="toggle-dark-mode">Toggle Dark Mode</button>
-  <h1>Todo App</h1>
+  <h1>To Do Application</h1>
   <div class="wrapper">
     <form id="todo-form">
       <input id="todo-input" type="text" placeholder="Add a task..." autocomplete="off">
@@ -263,15 +268,17 @@
         const text = document.createElement('span');
         text.textContent = todo.task;
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => deleteTask(todo));
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => deleteTodo(todo));
 
         const actions = document.createElement('div');
         actions.className = 'todo-actions';
-        actions.appendChild(deleteBtn);
+        actions.appendChild(deleteButton);
 
-        li.append(checkbox, text, actions);
+        li.appendChild(checkbox);
+        li.appendChild(text);
+        li.appendChild(actions);
         todoList.appendChild(li);
       });
     }
@@ -282,8 +289,8 @@
       loadTodos();
     }
 
-    function deleteTask(todoToDelete) {
-      todos = todos.filter(todo => todo !== todoToDelete);
+    function deleteTodo(todo) {
+      todos = todos.filter(t => t !== todo);
       saveTodos();
       loadTodos();
     }
@@ -292,21 +299,17 @@
       localStorage.setItem('todos', JSON.stringify(todos));
     }
 
-    filter.addEventListener('change', loadTodos);
-
     darkModeToggle.addEventListener('click', () => {
-      const isDarkMode = document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode);
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark);
     });
 
     function setDarkMode(isDark) {
-      if (isDark) {
-        document.body.classList.add('dark-mode');
-      } else {
-        document.body.classList.remove('dark-mode');
-      }
+      if (isDark) document.body.classList.add('dark-mode');
+      else document.body.classList.remove('dark-mode');
     }
+
+    filter.addEventListener('change', loadTodos);
   </script>
 </body>
-
 </html>
