@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <style>
+    :root {
+      --background-light: #F9F9F9;
+      --background-dark: #101114;
+      --primary-color-light: #E0E0E0;
+      --primary-color-dark: #333;
+      --accent-color: #00796B;
+      --text-color-light: #101114;
+      --text-color-dark: #F9F9F9;
+    }
+
+    body {
+      background-color: var(--background-light);
+      color: var(--text-color-light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: var(--background-dark);
+      color: var(--text-color-dark);
+    }
+
+    .wrapper {
+      width: 700px;
+      max-width: 100%;
+      margin: auto;
+      text-align: center;
+    }
+
+    #day-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      list-style: none;
+    }
+
+    #day-nav li {
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #day-nav li:hover,
+    #day-nav li.active {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .toggle-dark-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: var(--accent-color);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .toggle-dark-mode:hover {
+      background-color: #00e6ac;
+    }
+
+    #todo-input {
+      width: 70%;
+      padding: 10px;
+      border: 2px solid var(--accent-color);
+      border-radius: 20px;
+    }
+
+    #add-button {
+      padding: 10px 20px;
+      background-color: var(--accent-color);
+      border: none;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .filter {
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 20px;
+      background-color: var(--primary-color-light);
+    }
+
+    .todo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--primary-color-light);
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    body.dark-mode .todo {
+      background-color: var(--primary-color-dark);
+    }
+
+    .todo.completed {
+      opacity: 0.6;
+    }
+
+    .todo-actions button {
+      margin-left: 10px;
+      border: none;
+      border-radius: 50%;
+      padding: 5px 10px;
+      background-color: var(--error-color);
+      color: white;
+      cursor: pointer;
+    }
+
+    .todo-actions button:hover {
+      background-color: #ff5555;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul id="day-nav">
+        <li data-day="0">Sunday</li>
+        <li data-day="1">Monday</li>
+        <li data-day="2">Tuesday</li>
+        <li data-day="3">Wednesday</li>
+        <li data-day="4">Thursday</li>
+        <li data-day="5">Friday</li>
+        <li data-day="6">Saturday</li>
+      </ul>
+    </nav>
+  </header>
+  <button class="toggle-dark-mode">Dark Mode</button>
+  <h1>Todo App</h1>
+  <div class="wrapper">
+    <form id="todo-form">
+      <input id="todo-input" type="text" placeholder="Add a task..." autocomplete="off">
+      <button id="add-button" type="submit">ADD</button>
+    </form>
+    <select class="filter" id="filter">
+      <option value="all">All</option>
+      <option value="completed">Completed</option>
+      <option value="not-completed">Not Completed</option>
+    </select>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <script>
+    const dayNav = document.getElementById('day-nav');
+    const todoList = document.getElementById('todo-list');
+    const todoForm = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const darkModeToggle = document.querySelector('.toggle-dark-mode');
+    const filter = document.getElementById('filter');
+
+    let currentDay = new Date().getDay();
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      highlightActiveDay();
+      loadTodos();
+      setDarkMode(localStorage.getItem('darkMode') === 'true');
+    });
+
+    dayNav.addEventListener('click', (e) => {
+      if (e.target.tagName === 'LI') {
+        currentDay = +e.target.dataset.day;
+        highlightActiveDay();
+        loadTodos();
+      }
+    });
+
+    function highlightActiveDay() {
+      [...dayNav.children].forEach(li => li.classList.remove('active'));
+      dayNav.children[currentDay]?.classList.add('active');
+    }
+
+    todoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const task = todoInput.value.trim();
+      if (!task) return alert('Task cannot be empty!');
+      todos.push({ task, day: currentDay, completed: false });
+      saveTodos();
+      todoInput.value = '';
+      loadTodos();
+    });
+
+    function loadTodos() {
+      const filterValue = filter.value;
+      let filteredTodos = todos.filter(todo => todo.day === currentDay);
+
+      if (filterValue === 'completed') filteredTodos = filteredTodos.filter(todo => todo.completed);
+      else if (filterValue === 'not-completed') filteredTodos = filteredTodos.filter(todo => !todo.completed);
+
+      filteredTodos.sort((a, b) => a.completed - b.completed);
+
+      renderTodos(filteredTodos);
+    }
+
+    function renderTodos(todosToRender) {
+      todoList.innerHTML = '';
+      todosToRender.forEach(todo => {
+        const li = document.createElement('li');
+        li.className = `todo ${todo.completed ? 'completed' : ''}`;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.completed;
+        checkbox.addEventListener('change', () => toggleComplete(todo));
+
+        const text = document.createElement('span');
+        text.textContent = todo.task;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => deleteTask(todo));
+
+        li.append(checkbox, text, deleteBtn);
+        todoList.appendChild(li);
+      });
+    }
+
+    function toggleComplete(todo) {
+      todo.completed = !todo.completed;
+      saveTodos();
+      loadTodos();
+    }
+
+    function deleteTask(todoToDelete) {
+      todos = todos.filter(todo => todo !== todoToDelete);
+      saveTodos();
+      loadTodos();
+    }
+
+    filter.addEventListener('change', loadTodos);
+
+    function saveTodos() {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+    });
+
+    function setDarkMode(isDark) {
+      document.body.classList.toggle('dark-mode', isDark);
+    }
+  </script>
+</body>
+
+</html>
