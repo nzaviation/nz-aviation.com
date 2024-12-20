@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logbook Generator | nz-aviation.com</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #444;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 45%;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #74ebd5;
+            outline: none;
+        }
+
+        button {
+            padding: 0.8rem;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            align-self: center;
+            width: 50%;
+            max-width: 200px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .output {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-wrap: break-word;
+        }
+
+        .divider {
+            height: 1px;
+            background: #ddd;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            input, button {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logbook Generator</h1>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="flightNumber">Flight Number</label>
+                <input type="text" id="flightNumber" placeholder="Enter flight number">
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="aircraft">Aircraft</label>
+                <input type="text" id="aircraft" placeholder="Enter aircraft (e.g., ZK-MAJ)">
+            </div>
+            <div class="form-group">
+                <label for="time">Flight Time (Hours)</label>
+                <input type="text" id="time" placeholder="Enter flight time">
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Flight Description</label>
+          <input type="text" id="description" placeholder="Enter flight description">
+        </div>
+        <button id="generate">Generate Entry</button>
+        <div class="divider"></div>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        document.getElementById('generate').addEventListener('click', () => {
+            const flightNumber = document.getElementById('flightNumber').value;
+            const date = document.getElementById('date').value;
+            const aircraft = document.getElementById('aircraft').value;
+            const description = document.getElementById('description').value;
+            const time = document.getElementById('time').value;
+
+            const outputElement = document.getElementById('output');
+
+            if (!flightNumber) {
+                outputElement.textContent = 'Flight number is required.';
+                return;
+            }
+
+            if (!date) {
+                outputElement.textContent = 'Date is required.';
+                return;
+            }
+
+            if (!aircraft) {
+                outputElement.textContent = 'Aircraft is required.';
+                return;
+            }
+
+            if (!description) {
+                outputElement.textContent = 'Flight description is required.';
+                return;
+            }
+
+            if (!time || isNaN(time)) {
+                outputElement.textContent = 'Valid flight time (in hours) is required.';
+                return;
+            }
+
+            const formattedDate = new Date(date).toLocaleDateString('en-GB').replaceAll('/', '.');
+            const output = `[${flightNumber}] ${formattedDate} ${aircraft} ~ ${description} (${time})`;
+            outputElement.textContent = output;
+        });
+    </script>
+</body>
+</html>
