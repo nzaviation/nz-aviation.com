@@ -31,6 +31,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            position: relative;
         }
 
         h1 {
@@ -76,6 +77,12 @@
             outline: none;
         }
 
+        .validation-message {
+            font-size: 0.9rem;
+            color: red;
+            display: none;
+        }
+
         button {
             padding: 0.8rem;
             background: #007bff;
@@ -102,12 +109,35 @@
             font-family: monospace;
             font-size: 0.9rem;
             word-wrap: break-word;
+            position: relative;
         }
 
         .divider {
             height: 1px;
             background: #ddd;
             margin: 1rem 0;
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dark-mode-toggle.dark {
+            background: #333;
+            border-color: #555;
+            color: #fff;
         }
 
         @media (max-width: 600px) {
@@ -127,34 +157,70 @@
                 padding: 1.5rem;
             }
         }
+
+        body.dark {
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #fff;
+        }
+
+        body.dark .container {
+            background: #1e1e1e;
+            color: #ccc;
+        }
+
+        body.dark input {
+            background: #333;
+            border-color: #555;
+            color: #fff;
+        }
+
+        body.dark .output {
+            background: #292929;
+            border-color: #444;
+        }
+
+        body.dark button {
+            background: #555;
+        }
+
+        body.dark button:hover {
+            background: #333;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="dark-mode-toggle" id="darkModeToggle">&#9728;</div>
         <h1>Logbook Generator</h1>
         <div class="form-row">
             <div class="form-group">
                 <label for="flightNumber">Flight Number</label>
                 <input type="text" id="flightNumber" placeholder="Enter flight number">
+                <div class="validation-message" id="flightNumberValidation">Flight number is required.</div>
             </div>
             <div class="form-group">
                 <label for="date">Date</label>
                 <input type="date" id="date">
+                <div class="validation-message" id="dateValidation">Date is required.</div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label for="aircraft">Aircraft</label>
                 <input type="text" id="aircraft" placeholder="Enter aircraft (e.g., ZK-MAJ)">
+                <div class="validation-message" id="aircraftValidation">Aircraft is required.</div>
             </div>
             <div class="form-group">
                 <label for="time">Flight Time (Hours)</label>
                 <input type="number" id="time" placeholder="Enter flight time" step="0.1">
+                <div class="validation-message" id="timeValidation">Flight time is required.</div>
             </div>
         </div>
         <div class="form-group">
           <label for="description">Flight Description</label>
           <input type="text" id="description" placeholder="Enter flight description">
+          <div class="validation-message" id="descriptionValidation">Flight description is required.</div>
         </div>
         <button id="generate">Generate Entry</button>
         <div class="divider"></div>
@@ -162,6 +228,15 @@
     </div>
 
     <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            darkModeToggle.classList.toggle('dark');
+            darkModeToggle.innerHTML = body.classList.contains('dark') ? '&#9790;' : '&#9728;';
+        });
+
         document.getElementById('generate').addEventListener('click', () => {
             const flightNumber = document.getElementById('flightNumber').value;
             const date = document.getElementById('date').value;
@@ -169,35 +244,25 @@
             const description = document.getElementById('description').value;
             const time = document.getElementById('time').value;
 
-            const outputElement = document.getElementById('output');
+            const flightNumberValidation = document.getElementById('flightNumberValidation');
+            const dateValidation = document.getElementById('dateValidation');
+            const aircraftValidation = document.getElementById('aircraftValidation');
+            const descriptionValidation = document.getElementById('descriptionValidation');
+            const timeValidation = document.getElementById('timeValidation');
 
-            if (!flightNumber) {
-                outputElement.textContent = 'Flight number is required.';
-                return;
-            }
+            flightNumberValidation.style.display = flightNumber ? 'none' : 'block';
+            dateValidation.style.display = date ? 'none' : 'block';
+            aircraftValidation.style.display = aircraft ? 'none' : 'block';
+            descriptionValidation.style.display = description ? 'none' : 'block';
+            timeValidation.style.display = time && !isNaN(time) ? 'none' : 'block';
 
-            if (!date) {
-                outputElement.textContent = 'Date is required.';
-                return;
-            }
-
-            if (!aircraft) {
-                outputElement.textContent = 'Aircraft is required.';
-                return;
-            }
-
-            if (!description) {
-                outputElement.textContent = 'Flight description is required.';
-                return;
-            }
-
-            if (!time || isNaN(time)) {
-                outputElement.textContent = 'Valid flight time (in hours) is required.';
+            if (!flightNumber || !date || !aircraft || !description || !time || isNaN(time)) {
                 return;
             }
 
             const formattedDate = new Date(date).toLocaleDateString('en-GB').replaceAll('/', '.');
             const output = `[${flightNumber}] ${formattedDate} ${aircraft} ~ ${description} (${time})`;
+            const outputElement = document.getElementById('output');
             outputElement.textContent = output;
         });
     </script>
