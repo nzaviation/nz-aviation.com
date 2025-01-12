@@ -13,141 +13,163 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
-            --primary-gradient: linear-gradient(45deg, #ff6f61, #ff9472);
-            --background-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            --text-gradient: linear-gradient(90deg, #ffce3a, #ff6f61);
-            --button-hover-gradient: linear-gradient(45deg, #ff9472, #ff6f61);
-            --font-color: #f1f1f1;
-            --text-color: #dcdcdc;
+            --primary-color: #121212;
+            --secondary-color: #1d1d1d;
+            --highlight-color: #f4a261;
+            --highlight-hover-color: #e76f51;
+            --text-color: #eaeaea;
+            --button-color: #f4a261;
+            --button-hover-color: #e76f51;
+            --footer-color: #b0b0b0;
+            --background-gradient: linear-gradient(135deg, #121212, #1d1d1d);
+            --button-shadow: rgba(0, 0, 0, 0.3);
+            --glow-color: rgba(244, 166, 97, 0.4);
+            --particle-color: rgba(244, 166, 97, 0.6);
+            --link-color: #f4a261;
+            --link-hover-color: #e76f51;
         }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background: var(--background-gradient);
-            background-size: 200% 200%;
-            color: var(--font-color);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            animation: gradientShift 10s infinite ease-in-out;
-            padding-top: 3%;
+            position: relative;
+            padding: 0 20px;
+            animation: backgroundFlow 20s infinite linear;
         }
 
-        @keyframes gradientShift {
+        @keyframes backgroundFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 50px;
+            background: var(--secondary-color);
+            padding: 40px 50px;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             text-align: center;
-            max-width: 800px;
+            max-width: 700px;
+            width: 100%;
             animation: fadeIn 1s ease-in-out;
-            transform: perspective(1000px) rotateX(0deg) scale(0.95);
-            transition: transform 0.4s;
+            position: relative;
+            transition: all 0.3s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.85); }
+            from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        .container:hover {
-            transform: perspective(1000px) rotateX(5deg) scale(1.02);
-        }
-
         h1 {
-            font-size: 5vw;
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            color: var(--highlight-color);
             margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: textAppear 2s forwards;
-            opacity: 0;
+            letter-spacing: 1px;
+            animation: slideUp 1s ease-out;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes textAppear {
-            0% { opacity: 0; transform: translateY(-50px); }
-            100% { opacity: 1; transform: translateY(0); }
+        h1:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             color: var(--text-color);
             margin-bottom: 30px;
-            opacity: 0;
-            animation: textAppear 2.5s forwards;
+            animation: textFadeIn 1.5s ease-out;
+            transition: color 0.3s ease;
+        }
+
+        p:hover {
+            color: var(--highlight-color);
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .button {
             display: inline-block;
-            background: var(--primary-gradient);
+            background: var(--button-color);
             color: #fff;
-            padding: 15px 50px;
+            padding: 15px 40px;
             border-radius: 50px;
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px var(--button-shadow);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            transform: translateY(0);
         }
 
-        .button::before {
+        .button:hover {
+            background: var(--button-hover-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            transition: transform 0.2s ease-out;
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        .button::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.5);
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            transform: scale(0);
-            transition: all 0.4s ease;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.5s ease-out forwards;
         }
 
-        .button:hover::before {
-            transform: scale(20);
-            opacity: 0;
-        }
-
-        .button:hover {
-            background: var(--button-hover-gradient);
-            box-shadow: 0 10px 30px rgba(255, 111, 97, 0.5);
-            transform: translateY(-3px) scale(1.05);
+        @keyframes ripple {
+            to { transform: translate(-50%, -50%) scale(10); opacity: 0; }
         }
 
         .footer {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 0.9rem;
-            color: #bbb;
+            color: var(--footer-color);
+            animation: footerFadeIn 1s ease-out;
+            transition: opacity 0.3s ease;
         }
 
-        .glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 1000px;
-            height: 1000px;
-            background: radial-gradient(circle, rgba(255, 111, 97, 0.4), rgba(255, 255, 255, 0));
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            animation: pulse 6s infinite;
+        .footer:hover {
+            animation: footerSlideUp 1s ease-in;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+        @keyframes footerSlideUp {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes footerFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .particles {
@@ -161,11 +183,11 @@
 
         .particle {
             position: absolute;
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--particle-color);
             width: 5px;
             height: 5px;
             border-radius: 50%;
-            animation: particleAnimation 8s infinite ease-in-out;
+            animation: particleAnimation 6s infinite ease-in-out;
         }
 
         @keyframes particleAnimation {
@@ -173,38 +195,38 @@
             100% { transform: translateY(-200vh) translateX(200px) scale(0.5); opacity: 0; }
         }
 
-        body:hover .particle {
-            animation-play-state: paused;
+        a {
+            color: var(--link-color);
+            transition: all 0.3s ease;
         }
 
-        .cursor-effect {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 111, 97, 0.7);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: none;
-            animation: cursorFade 0.8s ease-out forwards;
-        }
-
-        @keyframes cursorFade {
-            to { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+        a:hover {
+            color: var(--link-hover-color);
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 7vw;
-            }
             .container {
-                padding: 30px;
+                padding: 20px 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            p {
+                font-size: 1rem;
             }
         }
 
     </style>
 </head>
 <body>
-    <div class="glow"></div>
     <div class="particles">
         <div class="particle" style="top: 80%; left: 10%; animation-delay: 0s;"></div>
         <div class="particle" style="top: 90%; left: 40%; animation-delay: 1s;"></div>
@@ -212,37 +234,21 @@
         <div class="particle" style="top: 85%; left: 90%; animation-delay: 3s;"></div>
         <div class="particle" style="top: 60%; left: 50%; animation-delay: 4s;"></div>
     </div>
+    
     <div class="container" role="main">
         <h1>Farewell and Thank You</h1>
         <p>
-            After deep reflection, I’ve made the heartfelt decision to close down this website along with all others in my portfolio. It’s a bittersweet moment, but one I feel is right as I move forward into new endeavors.
-            <br><br>
-            To those who took the time to visit—even just once—you’ve made this journey truly meaningful. Your support and encouragement have been a beacon of light, and I can’t thank you enough for being a part of it.
-            <br><br>
-            As we welcome 2025, I wish you joy, growth, and endless possibilities. Here’s to new beginnings and the wonderful adventures ahead. Thank you from the bottom of my heart.
+            After deep reflection, I've decided to close down this website and all others in my portfolio. A decision is right as I move forward into new endeavours.
+        </p><p>
+            Thank you to those who took the time to visit, even just once.
+        </p><p>
+            As we welcome 2025, I wish you joy, growth, and endless possibilities. Here's to new beginnings and the wonderful adventures ahead.
         </p>
         <a href="/home" class="button" aria-label="Visit the website">Still want to visit the website?</a>
         <div class="footer">&copy; 2022 - <span id="currentYear"></span> Jack Palmer. All rights reserved.</div>
     </div>
+
     <script>
-        document.body.addEventListener('mousemove', (e) => {
-            const cursorEffect = document.createElement('div');
-            cursorEffect.className = 'cursor-effect';
-            cursorEffect.style.left = `${e.pageX}px`;
-            cursorEffect.style.top = `${e.pageY}px`;
-            document.body.appendChild(cursorEffect);
-            setTimeout(() => cursorEffect.remove(), 800);
-
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach((particle) => {
-                const moveX = (x - 0.5) * 100;
-                const moveY = (y - 0.5) * 100;
-                particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            });
-        });
-
         document.addEventListener('DOMContentLoaded', function() {
             var yearElement = document.getElementById('currentYear');
             var currentYear = new Date().getFullYear();
