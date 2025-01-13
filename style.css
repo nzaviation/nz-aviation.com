@@ -82,7 +82,7 @@ header a:hover, footer a:hover {
   height: 100vh;
   width: 100%;
   position: relative;
-  background: url("images/favourite-4.jpg");
+  background: url("images/Background.jpeg");
   background-position: center 65%;
   background-size: cover;
 }
